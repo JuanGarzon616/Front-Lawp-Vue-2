@@ -1,19 +1,18 @@
 <template>
   <div>
     <links></links>
-    <div class="about">
-      <h1>This is an about page</h1>
-    </div>
   </div>
 </template>
 
 <script>
-import links from '@/components/links'
+import links from './links'
 
 export default {
-  name: 'About',
+  name: 'Landing',
   components: {
     links
   }
 }
 </script>
+
+<style scoped></style>
