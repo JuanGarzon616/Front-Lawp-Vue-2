@@ -64,8 +64,8 @@
         <div class="grid grid-cols-1" :class="{'text-red-600': $v.mail.$error}">
           <label for="mail">Correo.</label>
             <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.mail.$error}" v-if="!$v.mail.required">Correo requerido</p>
-            <p v-if="!$v.mail.minLength">Correo muy corto</p>
             <p v-if="!$v.mail.maxLength">Correo exede lo permitido</p>
+            <p v-if="!$v.mail.email" >Ingresa un correo valido</p>
           <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.mail.$error }" v-model.trim="$v.mail.$model" id="mail" type="text">
         </div>
         <div class="grid grid-cols-1" :class="{'text-red-600': $v.password2.$error}">
@@ -118,7 +118,7 @@
 import {departaments,municipalities} from '@/services/departaments'
 import {registerUser} from '@/services/users/register'
 import links from "@/components/links"
-import { required, minLength, maxLength, sameAs } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators'
 // :class="{ 'text-base text-red-600': $v.document.$error }"
 
 
@@ -183,8 +183,8 @@ export default{
     },
     mail: {
       required,
-      minLength: minLength(5),
-      maxLength: maxLength(50)
+      maxLength: maxLength(50),
+      email
     },
     password: {
       required,
