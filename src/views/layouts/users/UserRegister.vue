@@ -76,8 +76,9 @@
         </div>
         <div class="grid grid-cols-1" :class="{'text-red-600': $v.password.$error}">
           <label for="contra2">Confirmar Contraseña</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.password.$error}" v-if="!$v.password.required">Contraseña requerido</p>
-            <p v-if="!$v.password.minLength">Contraseña muy corto</p>
+            <!--p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.password.$error}" v-if="!$v.password.required">Contraseña requerido</p>
+            <p v-if="!$v.password.minLength">Contraseña muy corto</p-->
+            <p v-if="!$v.password.sameAs" >La contraseña debe ser igual.</p>
           <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.password.$error }" v-model.trim="$v.password.$model" id="contra2" type="text">
         </div>
         <div class="grid grid-cols-1" :class="{'text-red-600': $v.depar.$error}">
@@ -101,7 +102,7 @@
           </select>
 
         </div>
-        <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20" v-on:click="createUser" value="Crear">
+        <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20"  value="Crear">
       </div>
 
     </form>
@@ -117,7 +118,7 @@
 import {departaments,municipalities} from '@/services/departaments'
 import {registerUser} from '@/services/users/register'
 import links from "@/components/links"
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, sameAs } from 'vuelidate/lib/validators'
 // :class="{ 'text-base text-red-600': $v.document.$error }"
 
 
@@ -138,7 +139,7 @@ export default{
       password: null,
       password2: null,
       tellephone2: null,
-      fk_municipality_id: '',
+      fk_municipality_id: null,
       departaments: [],
       municipalities: [],
       depar: '',
@@ -187,7 +188,8 @@ export default{
     },
     password: {
       required,
-      minLength: minLength(10)
+      minLength: minLength(10),
+      sameAs: sameAs('password2')
     },
     password2: {
       required,
@@ -230,16 +232,29 @@ export default{
         password2: this.password2
       }).then(response=>{
         console.log(response)
-        this.userCreated = response.data
-      }).catch(error=>console.log(error));
+        //this.userCreated = response.data
+      }).catch( function (error){
+        if (error.response) {
+          if(error.response.data.errors.mail){
+            console.log('hola')
+          }
+          console.table(error.response.data);
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
     },
     submit() {
-      console.log('submit!')
+
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
         // do your submit logic here
+        console.log(this.createUser())
+        console.log(this.fk_document_type_id)
+        console.log('submit!')
         this.submitStatus = 'PENDING'
         setTimeout(() => {
           this.submitStatus = 'OK'
