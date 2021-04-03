@@ -10,17 +10,17 @@
         <h1 class="py-5" >Crea una cuenta gratis para poder usar nuestros servicios.</h1>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 p-10 gap-4">
-        <div class="grid grid-cols-1" :class="{ 'bg-red-100 text-red-600': $v.document.$error }">
+        <div class="grid grid-cols-1" >
           <label for="document">Documento de identidad.<i class="fas fa-address-card"></i></label>
-            <p v-if="!$v.document.required">Documento requerido</p>
+            <p class="text-xs text-gray-100"  v-if="!$v.document.required">Documento requerido</p>
             <p v-if="!$v.document.minLength">Documento muy corto</p>
             <p v-if="!$v.document.maxLength">Documento exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="$v.document.$model" id="document" type="number">
+          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.document.$model" id="document" type="number">
         </div>
-        <div class="grid grid-cols-1" :class="{ 'bg-red-100 text-red-600': $v.fk_document_type_id.$error }">
+        <div class="grid grid-cols-1">
           <label for="typedocument">Tipo De Documento.</label>
             <p v-if="!$v.fk_document_type_id.required">Tipo de documento requerido</p>
-          <select class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="fk_document_type_id" name="" id="typedocument">
+          <select class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.fk_document_type_id.$error }"  v-model.trim="$v.fk_document_type_id.$model" name="" id="typedocument">
             <option disabled value="">Seleccione un elemento</option>
             <option value="1">Cedula de Ciudadania</option>
             <option value="2">Targeta de Identidad</option>
@@ -28,54 +28,62 @@
             <option value="4">Pasaporte</option>
           </select>
         </div>
-        <div class="grid grid-cols-1" :class="{ 'bg-red-100 text-red-600': $v.names.$error }">
+        <div class="grid grid-cols-1">
           <label for="names">Nombres.</label>
             <p v-if="!$v.names.required">Nombre requerido</p>
             <p v-if="!$v.names.minLength">Nombre muy corto</p>
             <p v-if="!$v.names.maxLength">Nombre exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="names" id="names" type="text">
+          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }"  v-model.trim="$v.names.$model" id="names" type="text">
         </div>
-        <div class="grid grid-cols-1"  :class="{ 'bg-red-100 text-red-600': $v.last_names.$error }">
+        <div class="grid grid-cols-1">
           <label for="lnames">Apellidos.</label>
             <p v-if="!$v.last_names.required">Apellidos requerido</p>
             <p v-if="!$v.last_names.minLength">Apellido muy corto</p>
             <p v-if="!$v.last_names.maxLength">Apellido exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="last_names" id="lnames" type="text">
+          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.last_names.$model" id="lnames" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{ 'bg-red-100 text-red-600': $v.direcction.$error }">
+        <div class="grid grid-cols-1">
           <label for="dir">Direccion.</label>
             <p v-if="!$v.direcction.required">Direccion requerido</p>
             <p v-if="!$v.direcction.maxLength">Direccion exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="direcction" id="dir" type="text">
+          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.direcction.$model" id="dir" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{ 'bg-red-100 text-red-600': $v.tellephone1.$error }">
+        <div class="grid grid-cols-1">
           <label for="tell1">Telefono 1.</label>
             <p v-if="!$v.tellephone1.required">Telefono requerido</p>
             <p v-if="!$v.tellephone1.minLength">Telefono muy corto</p>
             <p v-if="!$v.tellephone1.maxLength">Telefono exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="tellephone1" id="tell1" type="text">
+          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.tellephone1.$model" id="tell1" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{ 'bg-red-100 text-red-600': $v.tellephone2.$error }">
+        <div class="grid grid-cols-1">
           <label for="tell2">Telefono 2.</label>
-            <p v-if="!$v.tellephone1.minLength">Telefono muy corto</p>
-            <p v-if="!$v.tellephone1.maxLength">Telefono exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="tellephone2" id="tell2" type="text">
+            <p v-if="!$v.tellephone2.minLength">Telefono muy corto</p>
+            <p v-if="!$v.tellephone2.maxLength">Telefono exede lo permitido</p>
+          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.tellephone2.$model" id="tell2" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{ 'bg-red-100 text-red-600': $v.mail.$error }">
+        <div class="grid grid-cols-1">
           <label for="mail">Correo.</label>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="mail" id="mail" type="text">
+            <p v-if="!$v.mail.required">Correo requerido</p>
+            <p v-if="!$v.mail.minLength">Correo muy corto</p>
+            <p v-if="!$v.mail.maxLength">Correo exede lo permitido</p>
+          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.mail.$model" id="mail" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{ 'bg-red-100 text-red-600': $v.password2.$error }">
+        <div class="grid grid-cols-1">
           <label for="contra1">Contraseña</label>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="password2" id="contra1" type="text">
+            <p v-if="!$v.password2.required">Contraseña requerido</p>
+            <p v-if="!$v.password2.minLength">Contraseña muy corto</p>
+          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.password2.$model" id="contra1" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{ 'bg-red-100 text-red-600': $v.password.$error }">
+        <div class="grid grid-cols-1">
           <label for="contra2">Confirmar Contraseña</label>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="password" id="contra2" type="text">
+            <p v-if="!$v.password.required">Contraseña requerido</p>
+            <p v-if="!$v.password.minLength">Contraseña muy corto</p>
+          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.password.$model" id="contra2" type="text">
         </div>
         <div class="grid grid-cols-1">
           <label for="departament">Departamento</label>
-          <select class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="depar" v-on:click="muni" id="departament">
+            <p v-if="!$v.depar.required">Departamento requerido</p>
+          <select class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.depar.$model" v-on:click="muni" id="departament">
             <option disabled value="">Seleccione un elemento</option>
             <option v-for="(item, index) in departaments" :key="index" v-bind:value="{depar: item.id}" >
               {{ item.name }}
@@ -83,8 +91,9 @@
           </select>
         </div>
         <div class="grid grid-cols-1">
-          <label for="muni" :class="{ 'bg-red-100 text-red-600': $v.fk_municipality_id.$error }">Municipio</label>
-          <select class="p-1 border focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent rounded-lg shadow-2xl" v-model.trim="fk_municipality_id" name="" id="muni">
+          <label for="muni">Municipio</label>
+            <p v-if="!$v.fk_municipality_id.required">Municipio requerido</p>
+          <select class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.fk_municipality_id.$model" name="" id="muni">
             <option disabled value="">Seleccione un elemento</option>
             <option v-for="(item, index) in municipalities" :key="index" v-bind:value="{fk_municipality_id: item.id}">
               {{ item.name }}
@@ -109,7 +118,7 @@ import {departaments,municipalities} from '@/services/departaments'
 import {registerUser} from '@/services/users/register'
 import links from "@/components/links"
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
-// v-on:submit.prevent="checkForm"
+// :class="{ 'text-base text-red-600': $v.document.$error }"
 
 
 export default{
@@ -120,7 +129,7 @@ export default{
   data(){
     return {
       document: '',
-      fk_document_type_id: null,
+      fk_document_type_id: '',
       names: null,
       last_names: null,
       direcction: null,
@@ -142,17 +151,20 @@ export default{
       minLength: minLength(10),
       maxLength: maxLength(15)
     },
+    fk_document_type_id: {
+      required
+    },
     fk_municipality_id: {
       required
     },
     names: {
       required,
-      minLength: minLength (5),
+      minLength: minLength (3),
       maxLength: maxLength (50)
     },
     last_names: {
       required,
-      minLength: minLength (5),
+      minLength: minLength (3),
       maxLength: maxLength (50)
     },
     direcction: {
@@ -169,7 +181,9 @@ export default{
       maxLength: maxLength(20)
     },
     mail: {
-      required
+      required,
+      minLength: minLength(5),
+      maxLength: maxLength(50)
     },
     password: {
       required,
@@ -178,6 +192,9 @@ export default{
     password2: {
       required,
       minLength: minLength(10)
+    },
+    depar: {
+      required
     }
   },
   created() {
