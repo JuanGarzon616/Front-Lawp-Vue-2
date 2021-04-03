@@ -12,7 +12,8 @@ let ifEmail = (email) =>{
     return axios.get(`${emailVerification}`,email)
 }
 let ifDoc = (doc)=>{
-    return axios.get(`${apiUserRegister}`,doc)
+    console.log(doc)
+    return axios.get(`${apiUserRegister}/`,doc)
 }
 
 export {

@@ -13,6 +13,7 @@
         <div class="grid grid-cols-1" :class="{'text-red-600': $v.document.$error}" >
           <label for="document">Documento de identidad.<i class="fas fa-address-card"></i></label>
             <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.document.$error}" v-if="!$v.document.required">Documento requerido</p>
+            <p v-if="!$v.document.isUnique">Documento ya usado</p>
             <p v-if="!$v.document.minLength">Documento muy corto</p>
             <p v-if="!$v.document.maxLength">Documento exede lo permitido</p>
           <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.document.$model" id="document" type="number">
@@ -116,7 +117,7 @@
 <script>
 
 import { departaments, municipalities } from '@/services/departaments'
-import { registerUser, ifDoc, ifEmail } from '@/services/users/userFetch'
+import { registerUser, ifDoc/*, ifEmail*/ } from '@/services/users/userFetch'
 import links from "@/components/links"
 import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators'
 // :class="{ 'text-base text-red-600': $v.document.$error }"
@@ -152,7 +153,19 @@ export default{
     document: {
       required,
       minLength: minLength(10),
-      maxLength: maxLength(15)
+      maxLength: maxLength(15),
+      isUnique(value){
+        if(value ==='') return true
+
+        return new Promise((resolve) =>{
+          setTimeout(()=>{
+            //resolve(ifDoc(value))
+            resolve(ifDoc(value))
+
+          },3000)
+        })
+
+      }
     },
     fk_document_type_id: {
       required
