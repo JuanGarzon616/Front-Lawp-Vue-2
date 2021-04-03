@@ -115,8 +115,8 @@
 
 <script>
 
-import {departaments,municipalities} from '@/services/departaments'
-import {registerUser} from '@/services/users/register'
+import { departaments, municipalities } from '@/services/departaments'
+import { registerUser, ifDoc, ifEmail } from '@/services/users/userFetch'
 import links from "@/components/links"
 import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators'
 // :class="{ 'text-base text-red-600': $v.document.$error }"
@@ -143,7 +143,9 @@ export default{
       departaments: [],
       municipalities: [],
       depar: '',
-      userCreated: ''
+      userCreated: '',
+      emailerror: '',
+      docuerror: ''
     }
   },
   validations: {
@@ -184,7 +186,11 @@ export default{
     mail: {
       required,
       maxLength: maxLength(50),
-      email
+      email,
+      /*isUnique(){
+
+        return !this.createUser().error.response.data.errors.mail;
+      }*/
     },
     password: {
       required,
@@ -234,15 +240,7 @@ export default{
         console.log(response)
         //this.userCreated = response.data
       }).catch( function (error){
-        if (error.response) {
-          if(error.response.data.errors.mail){
-            console.log('hola')
-          }
-          console.table(error.response.data);
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
+        console.log(error.response.data);
       });
     },
     submit() {
