@@ -155,15 +155,23 @@ export default{
       minLength: minLength(10),
       maxLength: maxLength(15),
       isUnique(value){
-        if(value ==='') return true
+        //console.log('holav'+value)
+        if(value ===''){
+          return true
+        }else{
+          ifDoc(value).then(response=>{
+            console.log(response)
+          }).catch(error=>console.log(error))
+        }
 
-        return new Promise((resolve) =>{
+
+        /*return new Promise((resolve) =>{
           setTimeout(()=>{
             //resolve(ifDoc(value))
             resolve(ifDoc(value))
 
           },3000)
-        })
+        })*/
 
       }
     },
