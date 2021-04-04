@@ -13,10 +13,9 @@
         <div class="grid grid-cols-1" :class="{'text-red-600': $v.document.$error}" >
           <label for="document">Documento de identidad.<i class="fas fa-address-card"></i></label>
             <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.document.$error}" v-if="!$v.document.required">Documento requerido</p>
-            <p v-if="!$v.document.isUnique">Documento ya usado</p>
             <p v-if="!$v.document.minLength">Documento muy corto</p>
             <p v-if="!$v.document.maxLength">Documento exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.document.$model" id="document" type="number">
+          <input class="prueba" :class="{ 'bg-red-100 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.document.$model" id="document" type="number">
         </div>
         <div class="grid grid-cols-1" :class="{'text-red-600': $v.fk_document_type_id.$error}">
           <label for="typedocument">Tipo De Documento.</label>
@@ -117,7 +116,7 @@
 <script>
 
 import { departaments, municipalities } from '@/services/departaments'
-import { registerUser, ifDoc/*, ifEmail*/ } from '@/services/users/userFetch'
+import { registerUser } from '@/services/users/userFetch'
 import links from "@/components/links"
 import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators'
 // :class="{ 'text-base text-red-600': $v.document.$error }"
@@ -153,27 +152,7 @@ export default{
     document: {
       required,
       minLength: minLength(10),
-      maxLength: maxLength(15),
-      isUnique(value){
-        //console.log('holav'+value)
-        if(value ===''){
-          return true
-        }else{
-          ifDoc(value).then(response=>{
-            console.log(response)
-          }).catch(error=>console.log(error))
-        }
-
-
-        /*return new Promise((resolve) =>{
-          setTimeout(()=>{
-            //resolve(ifDoc(value))
-            resolve(ifDoc(value))
-
-          },3000)
-        })*/
-
-      }
+      maxLength: maxLength(15)
     },
     fk_document_type_id: {
       required
@@ -271,8 +250,7 @@ export default{
         this.submitStatus = 'ERROR'
       } else {
         // do your submit logic here
-        console.log(this.createUser())
-        console.log(this.fk_document_type_id)
+        this.createUser()
         console.log('submit!')
         this.submitStatus = 'PENDING'
         setTimeout(() => {
@@ -288,8 +266,11 @@ export default{
 </script>
 
 <style>
-form{
+/*form{
   font-family: 'Roboto', sans-serif;
 
+}*/
+.prueba{
+  @apply p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl;
 }
 </style>
