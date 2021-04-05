@@ -7,9 +7,9 @@
 
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 body{
   font-family: 'Roboto', sans-serif;
-  /*font-weight: 500;*/
-}
+  font-weight: 500;
+}*/
 </style>

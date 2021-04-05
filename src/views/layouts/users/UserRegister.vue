@@ -10,17 +10,17 @@
         <h1 class="py-5" >Crea una cuenta gratis para poder usar nuestros servicios.</h1>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 p-10 gap-4">
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.document.$error}" >
+        <div class="divin" :class="{'text-red-600': $v.document.$error}" >
           <label for="document">Documento de identidad.<i class="fas fa-address-card"></i></label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.document.$error}" v-if="!$v.document.required">Documento requerido</p>
+            <p class="pin" :class="{'ppostin': $v.document.$error}" v-if="!$v.document.required">Documento requerido</p>
             <p v-if="!$v.document.minLength">Documento muy corto</p>
             <p v-if="!$v.document.maxLength">Documento exede lo permitido</p>
-          <input class="prueba" :class="{ 'bg-red-100 focus:ring-2 focus:ring-red-600': $v.document.$error }" v-model.trim="$v.document.$model" id="document" type="number">
+          <input class="inputs" :class="{ 'postin': $v.document.$error }" v-model.trim="$v.document.$model" id="document" type="number">
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.fk_document_type_id.$error}">
+        <div class="divin" :class="{'text-red-600': $v.fk_document_type_id.$error}">
           <label for="typedocument">Tipo De Documento.</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.fk_document_type_id.$error}" v-if="!$v.fk_document_type_id.required">Tipo de documento requerido</p>
-          <select class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.fk_document_type_id.$error }"  v-model.trim="$v.fk_document_type_id.$model" name="" id="typedocument">
+            <p class="pin" :class="{'ppostin': $v.fk_document_type_id.$error}" v-if="!$v.fk_document_type_id.required">Tipo de documento requerido</p>
+          <select class="inputs" :class="{ 'postin': $v.fk_document_type_id.$error }"  v-model.trim="$v.fk_document_type_id.$model" name="" id="typedocument">
             <option disabled value="">Seleccione un elemento</option>
             <option value="1">Cedula de Ciudadania</option>
             <option value="2">Targeta de Identidad</option>
@@ -28,73 +28,71 @@
             <option value="4">Pasaporte</option>
           </select>
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.names.$error}">
+        <div class="divin" :class="{'text-red-600': $v.names.$error}">
           <label for="names">Nombres.</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.names.$error}" v-if="!$v.names.required">Nombre requerido</p>
+            <p class="pin" :class="{'ppostin': $v.names.$error}" v-if="!$v.names.required">Nombre requerido</p>
             <p v-if="!$v.names.minLength">Nombre muy corto</p>
             <p v-if="!$v.names.maxLength">Nombre exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.names.$error }"  v-model.trim="$v.names.$model" id="names" type="text">
+          <input class="inputs" :class="{ 'postin': $v.names.$error }"  v-model.trim="$v.names.$model" id="names" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.last_names.$error}">
+        <div class="divin" :class="{'text-red-600': $v.last_names.$error}">
           <label for="lnames">Apellidos.</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.last_names.$error}" v-if="!$v.last_names.required">Apellidos requerido</p>
+            <p class="pin" :class="{'ppostin': $v.last_names.$error}" v-if="!$v.last_names.required">Apellidos requerido</p>
             <p v-if="!$v.last_names.minLength">Apellido muy corto</p>
             <p v-if="!$v.last_names.maxLength">Apellido exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.last_names.$error }" v-model.trim="$v.last_names.$model" id="lnames" type="text">
+          <input class="inputs" :class="{ 'postin': $v.last_names.$error }" v-model.trim="$v.last_names.$model" id="lnames" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.direcction.$error}">
+        <div class="divin" :class="{'text-red-600': $v.direcction.$error}">
           <label for="dir">Direccion.</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.direcction.$error}" v-if="!$v.direcction.required">Direccion requerido</p>
+            <p class="pin" :class="{'ppostin': $v.direcction.$error}" v-if="!$v.direcction.required">Direccion requerido</p>
             <p v-if="!$v.direcction.maxLength">Direccion exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.direcction.$error }" v-model.trim="$v.direcction.$model" id="dir" type="text">
+          <input class="inputs" :class="{ 'postin': $v.direcction.$error }" v-model.trim="$v.direcction.$model" id="dir" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.tellephone1.$error}">
+        <div class="divin" :class="{'text-red-600': $v.tellephone1.$error}">
           <label for="tell1">Telefono 1.</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.tellephone1.$error}" v-if="!$v.tellephone1.required">Telefono requerido</p>
+            <p class="pin" :class="{'ppostin': $v.tellephone1.$error}" v-if="!$v.tellephone1.required">Telefono requerido</p>
             <p v-if="!$v.tellephone1.minLength">Telefono muy corto</p>
             <p v-if="!$v.tellephone1.maxLength">Telefono exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.tellephone1.$error }" v-model.trim="$v.tellephone1.$model" id="tell1" type="text">
+          <input class="inputs" :class="{ 'postin': $v.tellephone1.$error }" v-model.trim="$v.tellephone1.$model" id="tell1" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.tellephone2.$error}">
+        <div class="divin" :class="{'text-red-600': $v.tellephone2.$error}">
           <label for="tell2">Telefono 2.</label>
             <p  v-if="!$v.tellephone2.minLength">Telefono muy corto</p>
             <p v-if="!$v.tellephone2.maxLength">Telefono exede lo permitido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.tellephone2.$error }" v-model.trim="$v.tellephone2.$model" id="tell2" type="text">
+          <input class="inputs" :class="{ 'postin': $v.tellephone2.$error }" v-model.trim="$v.tellephone2.$model" id="tell2" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.mail.$error}">
+        <div class="divin" :class="{'text-red-600': $v.mail.$error}">
           <label for="mail">Correo.</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.mail.$error}" v-if="!$v.mail.required">Correo requerido</p>
+            <p class="pin" :class="{'ppostin': $v.mail.$error}" v-if="!$v.mail.required">Correo requerido</p>
             <p v-if="!$v.mail.maxLength">Correo exede lo permitido</p>
             <p v-if="!$v.mail.email" >Ingresa un correo valido</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.mail.$error }" v-model.trim="$v.mail.$model" id="mail" type="text">
+          <input class="inputs" :class="{ 'postin': $v.mail.$error }" v-model.trim="$v.mail.$model" id="mail" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.password2.$error}">
+        <div class="divin" :class="{'text-red-600': $v.password2.$error}">
           <label for="contra1">Contraseña</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.password2.$error}" v-if="!$v.password2.required">Contraseña requerido</p>
+            <p class="pin" :class="{'ppostin': $v.password2.$error}" v-if="!$v.password2.required">Contraseña requerido</p>
             <p v-if="!$v.password2.minLength">Contraseña muy corto</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.password2.$error }" v-model.trim="$v.password2.$model" id="contra1" type="text">
+          <input class="inputs" :class="{ 'postin': $v.password2.$error }" v-model.trim="$v.password2.$model" id="contra1" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.password.$error}">
+        <div class="divin" :class="{'text-red-600': $v.password.$error}">
           <label for="contra2">Confirmar Contraseña</label>
-            <!--p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.password.$error}" v-if="!$v.password.required">Contraseña requerido</p>
-            <p v-if="!$v.password.minLength">Contraseña muy corto</p-->
             <p v-if="!$v.password.sameAs" >La contraseña debe ser igual.</p>
-          <input class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.password.$error }" v-model.trim="$v.password.$model" id="contra2" type="text">
+          <input class="inputs" :class="{ 'postin': $v.password.$error }" v-model.trim="$v.password.$model" id="contra2" type="text">
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.depar.$error}">
+        <div class="divin" :class="{'text-red-600': $v.depar.$error}">
           <label for="departament">Departamento</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.depar.$error}" v-if="!$v.depar.required">Departamento requerido</p>
-          <select class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.depar.$error }" v-model.trim="$v.depar.$model" v-on:click="muni" id="departament">
+            <p class="pin" :class="{'ppostin': $v.depar.$error}" v-if="!$v.depar.required">Departamento requerido</p>
+          <select class="inputs" :class="{ 'postin': $v.depar.$error }" v-model.trim="$v.depar.$model" v-on:click="muni" id="departament">
             <option disabled value="">Seleccione un elemento</option>
             <option v-for="(item, index) in departaments" :key="index" v-bind:value="{depar: item.id}" >
               {{ item.name }}
             </option>
           </select>
         </div>
-        <div class="grid grid-cols-1" :class="{'text-red-600': $v.fk_municipality_id.$error}">
+        <div class="divin" :class="{'text-red-600': $v.fk_municipality_id.$error}">
           <label for="muni">Municipio</label>
-            <p class="text-xs text-gray-100" :class="{'text-red-600 text-base': $v.fk_municipality_id.$error}" v-if="!$v.fk_municipality_id.required">Municipio requerido</p>
-          <select class="p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl" :class="{ 'bg-red-100 text-red-600 focus:ring-2 focus:ring-red-600': $v.fk_municipality_id.$error }" v-model.trim="$v.fk_municipality_id.$model" name="" id="muni">
+            <p class="pin" :class="{'ppostin': $v.fk_municipality_id.$error}" v-if="!$v.fk_municipality_id.required">Municipio requerido</p>
+          <select class="inputs" :class="{ 'postin': $v.fk_municipality_id.$error }" v-model.trim="$v.fk_municipality_id.$model" name="" id="muni">
             <option disabled value="">Seleccione un elemento</option>
             <option v-for="(item, index) in municipalities" :key="index" v-bind:value="{fk_municipality_id: item.id}">
               {{ item.name }}
@@ -265,12 +263,9 @@ export default{
 }
 </script>
 
-<style>
-/*form{
+<style scoped>
+form{
   font-family: 'Roboto', sans-serif;
 
-}*/
-.prueba{
-  @apply p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl;
 }
 </style>
