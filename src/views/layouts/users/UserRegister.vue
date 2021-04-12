@@ -10,7 +10,7 @@
         <h1 class="py-5" >Crea una cuenta gratis para poder usar nuestros servicios.</h1>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 p-10 gap-4">
-        <div class="divin" :class="{'text-red-600': $v.document.$error}" >
+        <div class="divin" :class="{'text-red-600': $v.document.$error}">
           <label for="document">Documento de identidad.<i class="fas fa-address-card"></i></label>
             <p class="pin" :class="{'ppostin': $v.document.$error}" v-if="!$v.document.required">Documento requerido</p>
             <p v-if="!$v.document.minLength">Documento muy corto</p>
