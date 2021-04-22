@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUserRegister = 'http://127.0.0.1:8000/api/user';
+const apiUserRegister = 'http://127.0.0.1:8000/api/user/register';
 const emailVerification = 'http://127.0.0.1:8000/api/user/email'
 
 
