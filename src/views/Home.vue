@@ -1,16 +1,17 @@
 <template>
   <div class="">
-    <Landing/>
+    <links></links>
   </div>
 </template>
 
 <script>
 
-import Landing from '@/components/Landing'
+import links from '@/components/links'
 
 export default {
+  name: 'About',
   components: {
-    Landing
+    links
   }
 }
 </script>
