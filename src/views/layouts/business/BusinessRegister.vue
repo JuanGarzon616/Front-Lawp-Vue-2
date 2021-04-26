@@ -1,56 +1,20 @@
 <template>
   <div>
-
-
+    <BusinessResgisterComponent></BusinessResgisterComponent>
   </div>
 </template>
 
 <script>
-//import links from "@/components/links";
+import BusinessResgisterComponent from "@/components/BusinessRegisterComponent/BusinessResgisterComponent";
 
-export default {
-  name: "BusinessRegister",
+export default{
+  name: 'BusinessRegister',
   components: {
-
-  },
-  data(){
-    return {
-      nit: '',
-      business_name: '',
-      legal_name: '',
-      tellephone1: '',
-      tellephone2: '',
-      mail: '',
-      esector: '',
-      fk_municipality_id: '',
-      cdate: '',
-      id: '',
-    }
-  },
-  validations: {
-    nit: {
-
-    },
-    business_name: {
-
-    },
-    legal_name:{
-
-    },
-    tellephone1: {
-
-    },
-    tellephone2: {
-
-    },
-    mail: {
-
-    },
-    esector: {
-
-    }
+    BusinessResgisterComponent
   }
 }
+
+
 </script>
 
 <style scoped>

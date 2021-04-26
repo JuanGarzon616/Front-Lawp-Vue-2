@@ -245,7 +245,6 @@ export default{
       });
     },
     submit() {
-
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'

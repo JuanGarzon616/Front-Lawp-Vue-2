@@ -13,6 +13,6 @@ let businessRegister = (dataBusiness) => {
     axios.post(`${businesRegister}`,dataBusiness,config)
 }
 
-export {
+export default{
     businessRegister
 }
