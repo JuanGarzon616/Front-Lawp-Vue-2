@@ -1,16 +1,54 @@
 <template>
   <div>
-    <links></links>
-    <h1>registro empresa</h1>
+
+
   </div>
 </template>
 
 <script>
-import links from "@/components/links";
+//import links from "@/components/links";
+
 export default {
-name: "BusinessRegister",
+  name: "BusinessRegister",
   components: {
-    links
+
+  },
+  data(){
+    return {
+      nit: '',
+      business_name: '',
+      legal_name: '',
+      tellephone1: '',
+      tellephone2: '',
+      mail: '',
+      esector: '',
+      fk_municipality_id: '',
+      cdate: '',
+      id: '',
+    }
+  },
+  validations: {
+    nit: {
+
+    },
+    business_name: {
+
+    },
+    legal_name:{
+
+    },
+    tellephone1: {
+
+    },
+    tellephone2: {
+
+    },
+    mail: {
+
+    },
+    esector: {
+
+    }
   }
 }
 </script>
