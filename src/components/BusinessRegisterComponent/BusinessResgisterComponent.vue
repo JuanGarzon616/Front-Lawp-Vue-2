@@ -19,9 +19,9 @@
           <input class="inputs" :class="{ 'postin': $v.business_name.$error }"  v-model.trim="$v.business_name.$model" id="names" type="text">
         </div>
         <div class="divin" :class="{'text-red-600': $v.legal_name.$error}">
-          <label for="names">Nombre de la Empresa.</label>
+          <label for="names">Nombre juridico.</label>
           <p v-if="!$v.legal_name.maxLength">Nombre exede lo permitido</p>
-          <input class="inputs" :class="{ 'postin': $v.legal_name.$error }"  v-model.trim="$v.legal_name.$model" id="names" type="text">
+          <input class="inputs" :class="{ 'postin': $v.legal_name.$error }"  v-model.trim="$v.legal_name.$model" id="formal" type="text">
         </div>
         <div class="divin" :class="{'text-red-600': $v.tellephone1.$error}">
           <label for="tell1">Telefono 1.</label>
@@ -37,21 +37,32 @@
           <input class="inputs" :class="{ 'postin': $v.tellephone2.$error }" v-model.trim="$v.tellephone2.$model" id="tell2" type="text">
         </div>
           <div class="divin" :class="{'text-red-600': $v.mail.$error}">
-            <label for="mail">Correo.</label>
+            <label for="mail">Correo Empresarila.</label>
             <p v-if="!$v.mail.maxLength">Correo exede lo permitido</p>
             <p v-if="!$v.mail.email" >Ingresa un correo valido</p>
             <input class="inputs" :class="{ 'postin': $v.mail.$error }" v-model.trim="$v.mail.$model" id="mail" type="text">
         </div>
-        <div class="divin" :class="{'text-red-600': $v.depar.$error}">
-          <label for="departament">Departamento</label>
-          <select class="inputs" :class="{ 'postin': $v.depar.$error }" v-model.trim="$v.depar.$model" v-on:click="munici" id="departament">
-<!--          <select class="inputs" :class="{ 'postin': $v.depar.$error }" v-model.trim="$v.depar.$model" v-on:click="muni" id="departament">-->
+        <div class="divin" :class="{'text-red-600': $v.esector.$error}">
+          <label for="economic">Sector Economico</label>
+          <select class="inputs" :class="{ 'postin': $v.esector.$error }" v-model.trim="$v.esector.$model" id="economic">
             <option disabled value="">Seleccione un elemento</option>
-            <option v-for="(item, index) in departament" :key="index" :value="item.id" >
+            <option v-for="(item, index) in economicsec" :key="index"  :value="item.id" >
               {{ item.name }}
               {{ item.id }}
             </option>
-
+          </select>
+        </div>
+        <div class="divin" :class="{'text-red-600': $v.cdate.$error}">
+          <label for="mail">Fecha de conformacion.</label>
+          <input class="inputs" :class="{ 'postin': $v.cdate.$error }" v-model.trim="$v.cdate.$model" id="fecha" type="date">
+        </div>
+        <div class="divin" :class="{'text-red-600': $v.depar.$error}">
+          <label for="departament">Departamento</label>
+          <select class="inputs" :class="{ 'postin': $v.depar.$error }" v-model.trim="$v.depar.$model" v-on:click="munici" id="departament">
+            <option disabled value="">Seleccione un elemento</option>
+            <option v-for="(item, index) in departament" :key="index" :value="item.id" >
+              {{ item.name }}
+            </option>
           </select>
         </div>
         <div class="divin" :class="{'text-red-600': $v.fk_municipality_id.$error}">
@@ -64,7 +75,7 @@
           </select>
         </div>
 
-        <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20"  value="Crear">
+        <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20 col-span-2"  value="Crear">
       </div>
 
     </form>
@@ -76,9 +87,9 @@
 
 <script>
 
-import {departaments,municipalities} from "@/services/departaments";
+import {departaments,municipalities,economicSectors} from "@/services/departaments"
 import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
-import businessRegister from '@/services/business/businessFetch'
+import {businessRegister} from '@/services/business/businessFetch'
 
 
 
@@ -88,6 +99,7 @@ export default {
   },
   data(){
     return {
+      economicsec: [],
       nit: '',
       business_name: '',
       legal_name: '',
@@ -97,11 +109,11 @@ export default {
       esector: '',
       fk_municipality_id: '',
       cdate: '',
-      id: '',
+      id: JSON.parse(localStorage.getItem('user')).id,
       muni: '',
       departament: [],
       municipality: [],
-      depar: ''
+      depar: '',
     }
   },
   validations: {
@@ -143,33 +155,43 @@ export default {
     },
     fk_municipality_id: {
       required
-    }
+    },
   },
   created() {
+    economicSectors().then(response1=>{
+      this.economicsec = response1.data
+    }).catch(error => console.log(error));
     departaments().then(response=>{
-      //console.log(response)
       this.departament = response.data
-      //console.log(response.data)
-    }).catch(error => console.log(error))
-     //   console.log('hola '+this.depar)
-    //console.log(this.departament)
+      //console.log(JSON.parse(localStorage.getItem('user')).id)
+    }).catch(error => console.log(error));
   },
   methods: {
+    getid(){
+      return Promise.resolve().then(function () {
+        return JSON.stringify(JSON.parse(localStorage.getItem('user')).id);
+      });
+    },
     munici(){
       municipalities(this.depar).then(response=>{
-        console.log(this.depar)
-        console.log(response)
         this.municipality = response.data
       }).catch(error => console.log(error))
     },
     createBusiness(){
       businessRegister({
-        nit: this.nit
+        nit: this.nit,
+        esector: this.esector,
+        legal_name: this.legal_name,
+        tellephone1: this.tellephone1,
+        tellephone2: this.tellephone2,
+        mail: this.mail,
+        cdate: this.cdate,
+        id: this.id
       }).then(response=>{
         console.log(response)
       }).catch(function error(){
-        console.log(error)
-      })
+        console.log("ERRRR:: ",error);
+      });
     },
     submit(){
       this.$v.$touch()

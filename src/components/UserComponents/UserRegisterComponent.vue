@@ -104,7 +104,6 @@
         </div>
         <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20"  value="Crear">
       </div>
-
     </form>
 
 
@@ -205,9 +204,6 @@ export default{
       //console.log(response)
       this.departaments = response.data
     }).catch(error => console.log(error));
-
-
-
   },
   methods: {
     muni(){
