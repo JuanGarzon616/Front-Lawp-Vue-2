@@ -44,23 +44,25 @@
         </div>
         <div class="divin" :class="{'text-red-600': $v.depar.$error}">
           <label for="departament">Departamento</label>
-          <select class="inputs" :class="{ 'postin': $v.depar.$error }" v-model.trim="$v.depar.$model" id="departament">
+          <select class="inputs" :class="{ 'postin': $v.depar.$error }" v-model.trim="$v.depar.$model" v-on:click="munici" id="departament">
 <!--          <select class="inputs" :class="{ 'postin': $v.depar.$error }" v-model.trim="$v.depar.$model" v-on:click="muni" id="departament">-->
             <option disabled value="">Seleccione un elemento</option>
-            <option v-for="(item, index) in departament" :key="index" v-bind:value="{depar: item.id}" >
+            <option v-for="(item, index) in departament" :key="index" :value="item.id" >
+              {{ item.name }}
+              {{ item.id }}
+            </option>
+
+          </select>
+        </div>
+        <div class="divin" :class="{'text-red-600': $v.fk_municipality_id.$error}">
+          <label for="muni">Municipio</label>
+          <select class="inputs" :class="{ 'postin': $v.fk_municipality_id.$error }" v-model.trim="$v.fk_municipality_id.$model" name="muni" id="muni">
+            <option disabled value="">Seleccione un elemento</option>
+            <option v-for="(item, index) in municipality" :key="index" v-bind:value="{fk_municipality_id: item.id}">
               {{ item.name }}
             </option>
           </select>
         </div>
-<!--        <div class="divin" :class="{'text-red-600': $v.fk_municipality_id.$error}">-->
-<!--          <label for="muni">Municipio</label>-->
-<!--          <select class="inputs" :class="{ 'postin': $v.fk_municipality_id.$error }" v-model.trim="$v.fk_municipality_id.$model" name="muni" id="muni">-->
-<!--            <option disabled value="">Seleccione un elemento</option>-->
-<!--            <option v-for="(item, index) in municipality" :key="index" v-bind:value="{fk_municipality_id: item.id}">-->
-<!--              {{ item.name }}-->
-<!--            </option>-->
-<!--          </select>-->
-<!--        </div>-->
 
         <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20"  value="Crear">
       </div>
@@ -74,7 +76,7 @@
 
 <script>
 
-import {departaments} from "@/services/departaments";
+import {departaments,municipalities} from "@/services/departaments";
 import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
 import businessRegister from '@/services/business/businessFetch'
 
@@ -147,15 +149,19 @@ export default {
     departaments().then(response=>{
       //console.log(response)
       this.departament = response.data
-    }).catch(error => console.log(error));
-        console.log(this.depar)
-    /*municipalities(this.depar).then(response=>{
-      console.log(response)
-      this.municipality = response.data
-    }).catch(error => console.log(error));*/
-
+      //console.log(response.data)
+    }).catch(error => console.log(error))
+     //   console.log('hola '+this.depar)
+    //console.log(this.departament)
   },
   methods: {
+    munici(){
+      municipalities(this.depar).then(response=>{
+        console.log(this.depar)
+        console.log(response)
+        this.municipality = response.data
+      }).catch(error => console.log(error))
+    },
     createBusiness(){
       businessRegister({
         nit: this.nit

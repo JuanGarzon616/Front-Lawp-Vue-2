@@ -11,10 +11,15 @@ let departaments = () =>{
 let municipalities = (id) =>{
     //console.log(id)
     //let val = id
-    //console.log(id["depar"])
-    //console.log(id)
+    // console.log(id["depar"])
+    // console.log(id)
+    if(id["depar"]){
+        return axios.get(`${departament}/${id["depar"]}`);
+    }else{
+        return axios.get(`${departament}/${id}`);
+    }
 
-    return axios.get(`${departament}/${id["depar"]}`);
+
 }
 
 export {
