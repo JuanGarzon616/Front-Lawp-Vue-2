@@ -28,19 +28,19 @@
           <!--          <p class="pin" :class="{'ppostin': $v.tellephone1.$error}" v-if="!$v.tellephone1.required">Telefono requerido</p>-->
           <p v-if="!$v.tellephone1.minLength">Telefono muy corto</p>
           <p v-if="!$v.tellephone1.maxLength">Telefono exede lo permitido</p>
-          <input class="inputs" :class="{ 'postin': $v.tellephone1.$error }" v-model.trim="$v.tellephone1.$model" id="tell1" type="text">
+          <input class="inputs" :class="{ 'postin': $v.tellephone1.$error }" v-model.trim="$v.tellephone1.$model" id="tell1" type="number">
         </div>
         <div class="divin" :class="{'text-red-600': $v.tellephone2.$error}">
           <label for="tell2">Telefono 2.</label>
-          <p  v-if="!$v.tellephone2.minLength">Telefono muy corto</p>
+          <p v-if="!$v.tellephone2.minLength">Telefono muy corto</p>
           <p v-if="!$v.tellephone2.maxLength">Telefono exede lo permitido</p>
-          <input class="inputs" :class="{ 'postin': $v.tellephone2.$error }" v-model.trim="$v.tellephone2.$model" id="tell2" type="text">
+          <input class="inputs" :class="{ 'postin': $v.tellephone2.$error }" v-model.trim="$v.tellephone2.$model" id="tell2" type="number">
         </div>
           <div class="divin" :class="{'text-red-600': $v.mail.$error}">
             <label for="mail">Correo Empresarila.</label>
             <p v-if="!$v.mail.maxLength">Correo exede lo permitido</p>
             <p v-if="!$v.mail.email" >Ingresa un correo valido</p>
-            <input class="inputs" :class="{ 'postin': $v.mail.$error }" v-model.trim="$v.mail.$model" id="mail" type="text">
+            <input class="inputs" :class="{ 'postin': $v.mail.$error }" v-model.trim="$v.mail.$model" id="mail" type="email">
         </div>
         <div class="divin" :class="{'text-red-600': $v.esector.$error}">
           <label for="economic">Sector Economico</label>
@@ -69,13 +69,13 @@
           <label for="muni">Municipio</label>
           <select class="inputs" :class="{ 'postin': $v.fk_municipality_id.$error }" v-model.trim="$v.fk_municipality_id.$model" name="muni" id="muni">
             <option disabled value="">Seleccione un elemento</option>
-            <option v-for="(item, index) in municipality" :key="index" v-bind:value="{fk_municipality_id: item.id}">
+            <option v-for="(item, index) in municipality" :key="index" :value="item.id">
               {{ item.name }}
             </option>
           </select>
         </div>
 
-        <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20 col-span-2"  value="Crear">
+        <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20 col-span-1 md:col-span-2"  value="Crear">
       </div>
 
     </form>
@@ -90,6 +90,9 @@
 import {departaments,municipalities,economicSectors} from "@/services/departaments"
 import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
 import {businessRegister} from '@/services/business/businessFetch'
+import { getUser } from '@/services/users/userFetch'
+import Swal from "sweetalert2"
+import router from "@/router"
 
 
 
@@ -163,15 +166,10 @@ export default {
     }).catch(error => console.log(error));
     departaments().then(response=>{
       this.departament = response.data
-      //console.log(JSON.parse(localStorage.getItem('user')).id)
+      console.log(JSON.parse(localStorage.getItem('user')).id)
     }).catch(error => console.log(error));
   },
   methods: {
-    getid(){
-      return Promise.resolve().then(function () {
-        return JSON.stringify(JSON.parse(localStorage.getItem('user')).id);
-      });
-    },
     munici(){
       municipalities(this.depar).then(response=>{
         this.municipality = response.data
@@ -181,20 +179,45 @@ export default {
       businessRegister({
         nit: this.nit,
         esector: this.esector,
+        bussiness_name: this.business_name,
         legal_name: this.legal_name,
         tellephone1: this.tellephone1,
         tellephone2: this.tellephone2,
         mail: this.mail,
         cdate: this.cdate,
+        fk_municipality_id: this.fk_municipality_id,
         id: this.id
       }).then(response=>{
+
+        getUser().then(response=>{
+          console.log(response)
+          localStorage.setItem('user', JSON.stringify(response.data.user))
+        }).catch(function (error){console.log(error)})
+
+        if(response.status===201){
+          Swal.fire("Empresa creada","usuario creado satisfactoriamente","success")
+        }else {
+          console.log("algo paso")
+        }
+
         console.log(response)
-      }).catch(function error(){
-        console.log("ERRRR:: ",error);
+        router.push('/BusinessLogin')
+      }).catch(function (error){
+        if(error.response.data.messages.mail && error.response.data.messages.nit){
+          Swal.fire("Error",'Email y Numero de identificacion ya tomados.','error');
+        }else if(error.response.data.messages.nit){
+          Swal.fire("Error",'Numero de identificacion ya tomado.','error');
+        }else if(error.response.data.messages.mail){
+          Swal.fire("Error",'Correo  ya tomado.','error');
+        }else if(error.response.status===422){
+          Swal.fire("Error",'A ocurrido un error revisa los datos.','error');
+        }
+        console.log(error.response.data);
       });
     },
     submit(){
       this.$v.$touch()
+
       if(this.$v.$invalid){
         this.submitStatus = 'Error'
       }else{

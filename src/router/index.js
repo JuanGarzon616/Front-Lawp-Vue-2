@@ -30,7 +30,15 @@ const routes = [
   },{
     path: '/businessregister',
     name: 'BusinessRegister',
-    component: () => import('@/views/layouts/business/BusinessRegister')
+    component: () => import('@/views/layouts/business/BusinessRegister'),
+  },{
+    path: '/BusinessLogin',
+    name: 'BusinessLogin',
+    component: () => import('@/views/layouts/business/BusinessLogin'),
+    beforeEnter: (to, from, next) => {
+      if (to.name !== 'Home' && !isAuthenticated) next({ name: 'Home' })
+      else next()
+    }
   }
 ]
 
