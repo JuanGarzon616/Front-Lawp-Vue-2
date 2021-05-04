@@ -35,10 +35,10 @@ const routes = [
     path: '/BusinessLogin',
     name: 'BusinessLogin',
     component: () => import('@/views/layouts/business/BusinessLogin'),
-    beforeEnter: (to, from, next) => {
+    /*beforeEnter: (to, from, next) => {
       if (to.name !== 'Home' && !isAuthenticated) next({ name: 'Home' })
       else next()
-    }
+    }*/
   }
 ]
 
