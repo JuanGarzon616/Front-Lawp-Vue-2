@@ -188,6 +188,7 @@ export default {
         fk_municipality_id: this.fk_municipality_id,
         id: this.id
       }).then(response=>{
+        localStorage.setItem('business', JSON.stringify(response.data.business))
 
         getUser().then(response=>{
           console.log(response)

@@ -216,7 +216,7 @@ export default{
         password: this.password,
         password2: this.password2
       }).then(response=>{
-        //console.log(response)
+        console.log(response)
         localStorage.setItem('token', JSON.stringify(response.data.token))
         localStorage.setItem('user', JSON.stringify(response.data.user))
 
