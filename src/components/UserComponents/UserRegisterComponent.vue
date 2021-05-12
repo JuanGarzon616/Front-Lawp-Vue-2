@@ -72,7 +72,7 @@
           <label for="departament">Departamento</label>
           <select class="inputs" :class="{ 'postin': $v.depar.$error }" v-model.trim="$v.depar.$model" v-on:click="muni" id="departament">
             <option disabled value="">Seleccione un elemento</option>
-            <option v-for="(item, index) in departaments" :key="index" v-bind:value="{depar: item.id}" >
+            <option v-for="(item, index) in allDepartaments" :key="index" v-bind:value="{depar: item.id}" >
               {{ item.name }}
             </option>
           </select>
@@ -81,7 +81,7 @@
           <label for="muni">Municipio</label>
           <select class="inputs" :class="{ 'postin': $v.fk_municipality_id.$error }" v-model.trim="$v.fk_municipality_id.$model" name="muni" id="muni">
             <option disabled value="">Seleccione un elemento</option>
-            <option v-for="(item, index) in municipalities" :key="index" v-bind:value="{fk_municipality_id: item.id}">
+            <option v-for="(item, index) in allMunicipalities" :key="index" v-bind:value="{fk_municipality_id: item.id}">
               {{ item.name }}
             </option>
           </select>
@@ -94,12 +94,14 @@
         </div>
         <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20"  value="Crear">
       </div>
+
     </form>
   </div>
 </template>
 <script>
 
-import { departaments, municipalities } from '@/services/departaments'
+//import { departaments, municipalities } from '@/services/departaments'
+import { mapGetters, mapActions } from 'vuex'
 import { registerUser } from '@/services/users/userFetch'
 import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators'
 import router from "@/router"
@@ -123,7 +125,7 @@ export default{
       password2: null,
       tellephone2: null,
       fk_municipality_id: null,
-      departaments: [],
+      //departaments: [],
       municipalities: [],
       depar: '',
       userCreated: '',
@@ -189,18 +191,28 @@ export default{
     }
   },
   created() {
-    departaments().then(response=>{
-      //console.log(response)
+    /*departaments().then(response=>{
       this.departaments = response.data
-    }).catch(error => console.log(error));
+    }).catch(error => console.log(error));*/
+    this.getDepartaments()
+
+  },
+  computed: {
+    ...mapGetters('c',['allDepartaments']),
+    ...mapGetters('c',['allMunicipalities']),
+
   },
   methods: {
+    ...mapActions('c',['getDepartaments']),
+    ...mapActions('c',['getMunicipalities']),
     muni(){
-      //console.log(this.depar)
-      municipalities(this.depar).then(response=>{
-        //console.log(response)
+      this.getMunicipalities(JSON.parse(JSON.stringify(this.depar)).depar);
+      //console.log(this.depar);
+
+      /*municipalities(this.depar).then(response=>{
         this.municipalities = response.data
-      }).catch(error => console.log(error));
+      }).catch(error => console.log(error));*/
+
     },
     createUser(){
       registerUser({

@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import UsersModules from "@/store/modules/UsersModules"
+import BusinessModules from "@/store/modules/BusinessModules"
+import OtherModules from "@/store/modules/OtherModules"
 
 Vue.use(Vuex)
 
@@ -18,6 +21,12 @@ export default new Vuex.Store({
 
   },
   modules: {
+    a: UsersModules,
+    b: BusinessModules,
+    c: OtherModules
+  },
+  getters: {
+
 
   }
 })
