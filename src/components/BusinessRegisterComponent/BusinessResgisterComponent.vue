@@ -192,6 +192,7 @@ export default {
 
         getUser().then(response=>{
           console.log(response)
+          localStorage.removeItem('user')
           localStorage.setItem('user', JSON.stringify(response.data.user))
         }).catch(function (error){console.log(error)})
 
