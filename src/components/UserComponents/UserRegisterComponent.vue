@@ -200,11 +200,11 @@ export default{
   computed: {
     ...mapGetters('c',['allDepartaments']),
     ...mapGetters('c',['allMunicipalities']),
-
   },
   methods: {
     ...mapActions('c',['getDepartaments']),
     ...mapActions('c',['getMunicipalities']),
+    ...mapActions('a',['']),
     muni(){
       this.getMunicipalities(JSON.parse(JSON.stringify(this.depar)).depar);
       //console.log(this.depar);
