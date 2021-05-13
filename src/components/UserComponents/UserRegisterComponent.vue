@@ -100,9 +100,7 @@
 </template>
 <script>
 
-//import { departaments, municipalities } from '@/services/departaments'
 import { mapGetters, mapActions } from 'vuex'
-import { registerUser } from '@/services/users/userFetch'
 import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators'
 import router from "@/router"
 import Swal from "sweetalert2"
@@ -191,11 +189,7 @@ export default{
     }
   },
   created() {
-    /*departaments().then(response=>{
-      this.departaments = response.data
-    }).catch(error => console.log(error));*/
     this.getDepartaments()
-
   },
   computed: {
     ...mapGetters('c',['allDepartaments']),
@@ -204,18 +198,12 @@ export default{
   methods: {
     ...mapActions('c',['getDepartaments']),
     ...mapActions('c',['getMunicipalities']),
-    ...mapActions('a',['']),
+    ...mapActions('a',['saveUser']),
     muni(){
       this.getMunicipalities(JSON.parse(JSON.stringify(this.depar)).depar);
-      //console.log(this.depar);
-
-      /*municipalities(this.depar).then(response=>{
-        this.municipalities = response.data
-      }).catch(error => console.log(error));*/
-
     },
     createUser(){
-      registerUser({
+      this.saveUser({
         document: this.document,
         names: this.names,
         fk_municipality_id: this.fk_municipality_id['fk_municipality_id'],
@@ -227,7 +215,7 @@ export default{
         mail: this.mail,
         password: this.password,
         password2: this.password2
-      }).then(response=>{
+      }).then(response => {
         console.log(response)
         localStorage.setItem('token', JSON.stringify(response.data.token))
         localStorage.setItem('user', JSON.stringify(response.data.user))
@@ -255,7 +243,7 @@ export default{
         }else if(error.response.status===422){
           Swal.fire("Error",'A ocurrido un error revisa los datos.','error');
         }
-      });
+      })
     },
     submit() {
       this.$v.$touch()

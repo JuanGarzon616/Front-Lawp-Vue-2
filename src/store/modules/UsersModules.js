@@ -7,19 +7,20 @@ export default {
         UrlUser: 'http://127.0.0.1:8000/api/user',
         User: '',
         token: JSON.parse(localStorage.getItem("token")),
-        /*config: {
+        config: {
             headers: {
-                "Authorization": `Bearer ${context.rootState.instance.token}`,
+                //"Authorization": `Bearer ${context.rootState.instance.token}`,
+                'content-type': "application/application.json"
             }
-        }*/
+        }
 
     },
     mutations: {
 
     },
     actions: {
-        async saveUser({state},userData){
-            await axios.post(`${state.UrlUserRegister}`,userData)
+        saveUser({state},userData){
+            return axios.post(`${state.UrlUserRegister}`,userData)
         }
 
     },

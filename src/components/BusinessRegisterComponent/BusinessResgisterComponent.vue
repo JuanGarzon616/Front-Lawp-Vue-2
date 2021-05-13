@@ -46,7 +46,7 @@
           <label for="economic">Sector Economico</label>
           <select class="inputs" :class="{ 'postin': $v.esector.$error }" v-model.trim="$v.esector.$model" id="economic">
             <option disabled value="">Seleccione un elemento</option>
-            <option v-for="(item, index) in economicsec" :key="index"  :value="item.id" >
+            <option v-for="(item, index) in allEconomic" :key="index"  :value="item.id" >
               {{ item.name }}
               {{ item.id }}
             </option>
@@ -60,7 +60,7 @@
           <label for="departament">Departamento</label>
           <select class="inputs" :class="{ 'postin': $v.depar.$error }" v-model.trim="$v.depar.$model" v-on:click="munici" id="departament">
             <option disabled value="">Seleccione un elemento</option>
-            <option v-for="(item, index) in departament" :key="index" :value="item.id" >
+            <option v-for="(item, index) in allDepartaments" :key="index" :value="item.id" >
               {{ item.name }}
             </option>
           </select>
@@ -69,7 +69,7 @@
           <label for="muni">Municipio</label>
           <select class="inputs" :class="{ 'postin': $v.fk_municipality_id.$error }" v-model.trim="$v.fk_municipality_id.$model" name="muni" id="muni">
             <option disabled value="">Seleccione un elemento</option>
-            <option v-for="(item, index) in municipality" :key="index" :value="item.id">
+            <option v-for="(item, index) in allMunicipalities" :key="index" :value="item.id">
               {{ item.name }}
             </option>
           </select>
@@ -87,14 +87,13 @@
 
 <script>
 
-import {departaments,municipalities,economicSectors} from "@/services/departaments"
+// import {departaments,municipalities,economicSectors} from "@/services/departaments"
 import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
-import {businessRegister} from '@/services/business/businessFetch'
-import { getUser } from '@/services/users/userFetch'
-import Swal from "sweetalert2"
-import router from "@/router"
-
-
+import {mapActions, mapGetters} from "vuex"
+// import {businessRegister} from '@/services/business/businessFetch'
+// import { getUser } from '@/services/users/userFetch'
+// import Swal from "sweetalert2"
+// import router from "@/router"
 
 export default {
   name: 'BusinessRegisterComponent',
@@ -161,22 +160,35 @@ export default {
     },
   },
   created() {
+    this.getDepartaments()
+    this.getEconomic()
+    /*
     economicSectors().then(response1=>{
       this.economicsec = response1.data
     }).catch(error => console.log(error));
     departaments().then(response=>{
       this.departament = response.data
       console.log(JSON.parse(localStorage.getItem('user')).id)
-    }).catch(error => console.log(error));
+    }).catch(error => console.log(error));*/
+  },
+  computed: {
+    ...mapGetters('c',['allDepartaments']),
+    ...mapGetters('c',['allMunicipalities']),
+    ...mapGetters('c',['allEconomic']),
   },
   methods: {
+    ...mapActions('c',['getDepartaments']),
+    ...mapActions('c',['getMunicipalities']),
+    ...mapActions('c',['getEconomic']),
     munici(){
-      municipalities(this.depar).then(response=>{
+      //console.log(this.depar)
+      this.getMunicipalities(this.depar)
+      /*municipalities(this.depar).then(response=>{
         this.municipality = response.data
-      }).catch(error => console.log(error))
+      }).catch(error => console.log(error))*/
     },
     createBusiness(){
-      businessRegister({
+      /*businessRegister({
         nit: this.nit,
         esector: this.esector,
         bussiness_name: this.business_name,
@@ -215,7 +227,7 @@ export default {
           Swal.fire("Error",'A ocurrido un error revisa los datos.','error');
         }
         console.log(error.response.data);
-      });
+      });*/
     },
     submit(){
       this.$v.$touch()
