@@ -123,12 +123,11 @@ export default{
       password2: null,
       tellephone2: null,
       fk_municipality_id: null,
-      //departaments: [],
-      municipalities: [],
+      // municipalities: [],
       depar: '',
-      userCreated: '',
-      emailerror: '',
-      docuerror: '',
+      // userCreated: '',
+      // emailerror: '',
+      // docuerror: '',
       buss: ''
     }
   },
@@ -217,6 +216,7 @@ export default{
         password2: this.password2
       }).then(response => {
         console.log(response)
+        localStorage.clear()
         localStorage.setItem('token', JSON.stringify(response.data.token))
         localStorage.setItem('user', JSON.stringify(response.data.user))
 

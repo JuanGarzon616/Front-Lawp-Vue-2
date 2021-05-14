@@ -92,7 +92,7 @@ import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
 import {mapActions, mapGetters} from "vuex"
 // import {businessRegister} from '@/services/business/businessFetch'
 // import { getUser } from '@/services/users/userFetch'
-// import Swal from "sweetalert2"
+//import Swal from "sweetalert2"
 // import router from "@/router"
 
 export default {
@@ -162,14 +162,6 @@ export default {
   created() {
     this.getDepartaments()
     this.getEconomic()
-    /*
-    economicSectors().then(response1=>{
-      this.economicsec = response1.data
-    }).catch(error => console.log(error));
-    departaments().then(response=>{
-      this.departament = response.data
-      console.log(JSON.parse(localStorage.getItem('user')).id)
-    }).catch(error => console.log(error));*/
   },
   computed: {
     ...mapGetters('c',['allDepartaments']),
@@ -180,14 +172,23 @@ export default {
     ...mapActions('c',['getDepartaments']),
     ...mapActions('c',['getMunicipalities']),
     ...mapActions('c',['getEconomic']),
+    ...mapActions('b',['saveBusiness']),
     munici(){
-      //console.log(this.depar)
       this.getMunicipalities(this.depar)
-      /*municipalities(this.depar).then(response=>{
-        this.municipality = response.data
-      }).catch(error => console.log(error))*/
     },
     createBusiness(){
+      this.saveBusiness({
+        nit: this.nit,
+        esector: this.esector,
+        bussiness_name: this.business_name,
+        legal_name: this.legal_name,
+        tellephone1: this.tellephone1,
+        tellephone2: this.tellephone2,
+        mail: this.mail,
+        cdate: this.cdate,
+        fk_municipality_id: this.fk_municipality_id,
+        id: this.id
+      })
       /*businessRegister({
         nit: this.nit,
         esector: this.esector,
