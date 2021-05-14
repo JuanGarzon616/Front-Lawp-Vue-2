@@ -6,14 +6,12 @@ export default {
         UrlUserRegister: 'http://127.0.0.1:8000/api/user/register',
         UrlUser: 'http://127.0.0.1:8000/api/user',
         User: '',
-        token: JSON.parse(localStorage.getItem("token")),
         config: {
             headers: {
-                //"Authorization": `Bearer ${context.rootState.instance.token}`,
-                'content-type': "application/application.json"
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                //'content-type': "application/application.json"
             }
         }
-
     },
     mutations: {
 
@@ -21,6 +19,14 @@ export default {
     actions: {
         saveUser({state},userData){
             return axios.post(`${state.UrlUserRegister}`,userData)
+        },
+        getUser({state}){
+            axios.get(`${state.UrlUser}`,{'headers': {
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                }}).then(response=>{
+                localStorage.removeItem('user')
+                localStorage.setItem('user', JSON.stringify(response.data.user))
+            }).catch(function (error){console.log(error)})
         }
 
     },

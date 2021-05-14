@@ -25,7 +25,6 @@
         </div>
         <div class="divin" :class="{'text-red-600': $v.tellephone1.$error}">
           <label for="tell1">Telefono 1.</label>
-          <!--          <p class="pin" :class="{'ppostin': $v.tellephone1.$error}" v-if="!$v.tellephone1.required">Telefono requerido</p>-->
           <p v-if="!$v.tellephone1.minLength">Telefono muy corto</p>
           <p v-if="!$v.tellephone1.maxLength">Telefono exede lo permitido</p>
           <input class="inputs" :class="{ 'postin': $v.tellephone1.$error }" v-model.trim="$v.tellephone1.$model" id="tell1" type="number">
@@ -86,14 +85,8 @@
 </template>
 
 <script>
-
-// import {departaments,municipalities,economicSectors} from "@/services/departaments"
 import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
 import {mapActions, mapGetters} from "vuex"
-// import {businessRegister} from '@/services/business/businessFetch'
-// import { getUser } from '@/services/users/userFetch'
-//import Swal from "sweetalert2"
-// import router from "@/router"
 
 export default {
   name: 'BusinessRegisterComponent',
@@ -189,46 +182,6 @@ export default {
         fk_municipality_id: this.fk_municipality_id,
         id: this.id
       })
-      /*businessRegister({
-        nit: this.nit,
-        esector: this.esector,
-        bussiness_name: this.business_name,
-        legal_name: this.legal_name,
-        tellephone1: this.tellephone1,
-        tellephone2: this.tellephone2,
-        mail: this.mail,
-        cdate: this.cdate,
-        fk_municipality_id: this.fk_municipality_id,
-        id: this.id
-      }).then(response=>{
-        localStorage.setItem('business', JSON.stringify(response.data.business))
-
-        getUser().then(response=>{
-          console.log(response)
-          localStorage.removeItem('user')
-          localStorage.setItem('user', JSON.stringify(response.data.user))
-        }).catch(function (error){console.log(error)})
-
-        if(response.status===201){
-          Swal.fire("Empresa creada","usuario creado satisfactoriamente","success")
-        }else {
-          console.log("algo paso")
-        }
-
-        console.log(response)
-        router.push('/BusinessLogin')
-      }).catch(function (error){
-        if(error.response.data.messages.mail && error.response.data.messages.nit){
-          Swal.fire("Error",'Email y Numero de identificacion ya tomados.','error');
-        }else if(error.response.data.messages.nit){
-          Swal.fire("Error",'Numero de identificacion ya tomado.','error');
-        }else if(error.response.data.messages.mail){
-          Swal.fire("Error",'Correo  ya tomado.','error');
-        }else if(error.response.status===422){
-          Swal.fire("Error",'A ocurrido un error revisa los datos.','error');
-        }
-        console.log(error.response.data);
-      });*/
     },
     submit(){
       this.$v.$touch()

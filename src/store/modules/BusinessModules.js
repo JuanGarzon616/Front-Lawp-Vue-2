@@ -1,58 +1,23 @@
 import axios from "axios"
-import Swal from "sweetalert2";
-
-/*const headers = {
-    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-}*/
+import Swal from "sweetalert2"
+import router from "@/router"
 
 export default {
     namespaced: true,
     state: {
         UrlBusinessRegister: 'http://127.0.0.1:8000/api/business/register',
-        headers: {
-            //'Content-Type': 'application/json',
-            'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-        }
     },
     mutations: {
 
     },
     actions: {
-        saveBusiness({state/*, rootState*/},BusinessData){
+        saveBusiness({state,dispatch/*, rootState*/},BusinessData){
             console.log(BusinessData)
-            /*return axios.request({
-                method: 'POST',
-                url: `${state.UrlBusinessRegister}`,
-                /*headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-                },
-                data: {BusinessData
-                    /*nit: BusinessData.nit,
-                    esector: BusinessData.esector,
-                    bussiness_name: BusinessData.business_name,
-                    legal_name: BusinessData.legal_name,
-                    tellephone1: BusinessData.tellephone1,
-                    tellephone2: BusinessData.tellephone2,
-                    mail: BusinessData.mail,
-                    cdate: BusinessData.cdate,
-                    fk_municipality_id: BusinessData.fk_municipality_id,
-                    id: BusinessData.id
-                },
-
-            })*/
             axios.post(`${state.UrlBusinessRegister}`,BusinessData, {'headers': {
-                    //'Content-Type': 'application/json',
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                 }}).then(response=>{
                 console.log(response)
-                //localStorage.setItem('business', JSON.stringify(response.data.business))
-                /*getUser().then(response=>{
-                  console.log(response)
-                  localStorage.removeItem('user')
-                  localStorage.setItem('user', JSON.stringify(response.data.user))
-                }).catch(function (error){console.log(error)})*/
-
+                dispatch('a/getUser', '', { root: true })
                 if(response.status===201){
                     Swal.fire("Empresa creada","usuario creado satisfactoriamente","success")
                 }else {
@@ -60,7 +25,7 @@ export default {
                 }
 
                 console.log(response)
-                //router.push('/BusinessLogin')
+                router.push('/BusinessLogin')
             }).catch(error=>{
                 console.log(error.response)
                 if(error.response.data.messages.mail && error.response.data.messages.nit){
