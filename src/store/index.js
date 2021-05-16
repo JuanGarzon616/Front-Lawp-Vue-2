@@ -15,7 +15,6 @@ export default new Vuex.Store({
         return JSON.parse(localStorage.getItem('user')).is_admin
       }
     },
-    //Rol: JSON.parse(localStorage.getItem('user')).is_admin,
     Business: JSON.parse(localStorage.getItem("business"))
 
   },

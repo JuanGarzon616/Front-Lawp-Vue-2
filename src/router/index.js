@@ -25,7 +25,12 @@ const routes = [
   {
     path: '/userlogin',
     name: 'ulogin',
-    component: () => import('../views/layouts/users/ulogin')
+    component: () => import('../views/layouts/users/ulogin'),
+    beforeEnter: (to, from, next) => {
+      if (to.name !== 'Home' && !store.getters.uToken) next({ name: 'Home' })
+      else if (!store.getters.rol) next({ name: 'Home' })
+      else next()
+    }
   },{
     path: '/businessregister',
     name: 'BusinessRegister',
@@ -44,6 +49,10 @@ const routes = [
       else if (store.getters.rol !== 2) next({ name: 'Home' })
       else next()
     }
+  },{
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login')
   }
 ]
 
