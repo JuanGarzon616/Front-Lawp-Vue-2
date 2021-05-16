@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '@/store/index'
 
 Vue.use(VueRouter)
+//console.log('rol = '+store.getters.rol)
 
 const routes = [
   {
@@ -13,9 +15,6 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
@@ -31,16 +30,23 @@ const routes = [
     path: '/businessregister',
     name: 'BusinessRegister',
     component: () => import('@/views/layouts/business/BusinessRegister'),
+    beforeEnter: (to, from, next) => {
+      if (to.name !== 'Home' && !store.getters.uToken) next({ name: 'Home' })
+      else if (!store.getters.rol) next({ name: 'Home' })
+      else next()
+    }
   },{
     path: '/BusinessLogin',
     name: 'BusinessLogin',
     component: () => import('@/views/layouts/business/BusinessLogin'),
-    /*beforeEnter: (to, from, next) => {
-      if (to.name !== 'Home' && !isAuthenticated) next({ name: 'Home' })
+    beforeEnter: (to, from, next) => {
+      if (to.name !== 'Home' && !store.getters.uToken) next({ name: 'Home' })
+      else if (store.getters.rol !== 2) next({ name: 'Home' })
       else next()
-    }*/
+    }
   }
 ]
+
 
 const router = new VueRouter({
   mode: 'history',
