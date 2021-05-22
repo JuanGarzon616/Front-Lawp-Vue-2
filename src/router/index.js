@@ -26,27 +26,53 @@ const routes = [
     name: 'ulogin',
     component: () => import('../views/layouts/users/ulogin'),
     beforeEnter: (to, from, next) => {
-      if (to.name !== 'Home' && !store.getters.uToken) next({ name: 'Home' })
-      else if (!store.getters.rol) next({ name: 'Home' })
-      else next()
+      if (to.name !== 'Home' && !store.getters.uToken) {
+        //next({name: 'Home'})
+        router.push({name: 'Home'})
+      }
+      else if (JSON.parse(JSON.stringify(store.getters.rol)).is_admin === null) {
+        next()
+        //next({name: 'Home'})
+      }
+      else {
+        router.push({name: 'Home'})
+        // next()
+      }
     }
   },{
     path: '/businessregister',
     name: 'BusinessRegister',
     component: () => import('@/views/layouts/business/BusinessRegister'),
     beforeEnter: (to, from, next) => {
-      if (to.name !== 'Home' && !store.getters.uToken) next({ name: 'Home' })
-      else if (!store.getters.rol) next({ name: 'Home' })
-      else next()
+      if (to.name !== 'Home' && !store.getters.uToken) {
+        router.push({name: 'Home'})
+        //next({name: 'Home'})
+      }
+      else if (store.getters.rol) {
+        router.push({name: 'Home'})
+        //next({name: 'Home'})
+      }
+      else {
+        next()
+      }
     }
   },{
     path: '/BusinessLogin',
     name: 'BusinessLogin',
     component: () => import('@/views/layouts/business/BusinessLogin'),
     beforeEnter: (to, from, next) => {
-      if (to.name !== 'Home' && !store.getters.uToken) next({ name: 'Home' })
-      else if (store.getters.rol !== 2) next({ name: 'Home' })
-      else next()
+      if (to.name !== 'Home' && !store.getters.uToken) {
+        router.push({name: 'Home'})
+        //next({name: 'Home'})
+      }
+      //else if (store.getters.rol !== 2) next({ name: 'Home' })
+      else if(store.getters.rol === 2) {
+        next()
+      }
+      else {
+        router.push({name: 'Home'})
+        //next({name: 'Home'})
+      }
     }
   },{
     path: '/login',

@@ -92,7 +92,7 @@
           <label for="si">Si <input id="si" name="buss" type="radio" v-model="buss" value="si"></label>
           <label for="no">No <input  id="no" name="buss" type="radio" v-model="buss" value="no"></label>
         </div>
-        <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20"  value="Crear">
+        <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20" value="Crear">
       </div>
 
     </form>
@@ -229,7 +229,7 @@ export default{
         if(this.buss === 'si'){
           router.push('/businessregister')
         }else{
-          router.push('/userlogin')
+          router.push({name: 'ulogin'})
         }
       }).catch( function (error){
         console.log(error.response.data.status)

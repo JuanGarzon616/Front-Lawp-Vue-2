@@ -10,12 +10,22 @@ export default new Vuex.Store({
   state: {
     token: JSON.parse(localStorage.getItem("token")),
     User: JSON.parse(localStorage.getItem("user")),
-    Rol: ({state}) => {
+    /*Rol: ({state}) => {
       if (state.User){
-        return JSON.parse(localStorage.getItem('user')).is_admin
-      }
-    },
-    Business: JSON.parse(localStorage.getItem("business"))
+        if(JSON.parse(localStorage.getItem('user')).is_admin===null){
+          return 3
+        }
+        else{
+          return JSON.parse(localStorage.getItem('user')).is_admin
+        }
+      },
+
+    },*/
+    Rol: JSON.parse(localStorage.getItem('user')),
+    Business: JSON.parse(localStorage.getItem("business")),
+    userAuthenticated: '',
+    businessAuthenticated: '',
+    adminAuthenticated: '',
 
   },
   mutations: {
