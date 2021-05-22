@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center flex-wrap content-center bg-gray-100 min-h-screen">
 
-    <form v-on:submit.prevent="submit" action="" class="bg-white w-full sm:w-1/2 h-auto rounded-lg shadow-2xl">
+    <form v-on:submit.prevent="submit"  class="bg-white w-full sm:w-1/2 h-auto rounded-lg shadow-2xl">
       <div class="bg-blue-200 rounded-lg p-5">
         <h1 class="text-3xl" >registro usuario <i class="fas fa-desktop"></i></h1>
         <h1 class="py-5" >Crea una cuenta gratis para poder usar nuestros servicios.</h1>

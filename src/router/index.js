@@ -4,7 +4,6 @@ import Home from '../views/Home.vue'
 import store from '@/store/index'
 
 Vue.use(VueRouter)
-//console.log('rol = '+store.getters.rol)
 
 const routes = [
   {
