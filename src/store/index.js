@@ -10,7 +10,11 @@ export default new Vuex.Store({
   state: {
     token: JSON.parse(localStorage.getItem("token")),
     User: localStorage.getItem("user"),
-
+    rol: ({state}) =>{
+      if(state.User){
+        return JSON.parse(state.user).is_admin
+      }
+    }
   },
   mutations: {
 
@@ -27,6 +31,7 @@ export default new Vuex.Store({
     uToken: state => {
       return state.token
     },
+    rol: (state) => state.rol,
     user: (state) => state.User,
     business: (state) => state.token,
   }

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import store from '@/store/index'
+//import store from '@/store/index'
 
 Vue.use(VueRouter)
 
@@ -26,51 +26,30 @@ const routes = [
     name: 'ulogin',
     component: () => import('../views/layouts/users/ulogin'),
     beforeEnter: (to, from, next) => {
-      if (store.getters.uToken && JSON.parse(store.getters.user)) {
-        if(JSON.parse(store.getters.user).is_admin===3){
-          next()
-        }
-        else {
-          next({name: 'Home'})
-        }
-      }
-      else {
-        next({name: 'Home'})
-      }
+      let token = localStorage.getItem('token')
+      let user = localStorage.getItem('user')
+      if (!token && JSON.parse(user).is_admin !==3) next({name: 'Home'})
+      else next()
     }
   },{
     path: '/businessregister',
     name: 'BusinessRegister',
     component: () => import('@/views/layouts/business/BusinessRegister'),
     beforeEnter: (to, from, next) => {
-      if (store.getters.uToken && JSON.parse(store.getters.user)) {
-        if(JSON.parse(store.getters.user).is_admin===3){
-          next()
-        }
-        else {
-          next({name: 'Home'})
-        }
-      }
-      else {
-        next({name: 'Home'})
-      }
+      let token = localStorage.getItem('token')
+      let user = localStorage.getItem('user')
+      if (!token && JSON.parse(user).is_admin !==3) next({name: 'Home'})
+      else next()
     }
   },{
     path: '/BusinessLogin',
     name: 'BusinessLogin',
     component: () => import('@/views/layouts/business/BusinessLogin'),
     beforeEnter: (to, from, next) => {
-      if (store.getters.uToken && JSON.parse(store.getters.user)) {
-        if(JSON.parse(store.getters.user).is_admin===3){
-          next()
-        }
-        else {
-          next({name: 'Home'})
-        }
-      }
-      else {
-        next({name: 'Home'})
-      }
+      let token = localStorage.getItem('token')
+      let user = localStorage.getItem('user')
+      if (!token && JSON.parse(user).is_admin !==2) next({name: 'Home'})
+      else next()
     }
   },{
     path: '/login',

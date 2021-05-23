@@ -102,7 +102,7 @@
 
 import { mapGetters, mapActions } from 'vuex'
 import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators'
-import router from "@/router"
+//import router from "@/router"
 import Swal from "sweetalert2"
 
 export default{
@@ -227,10 +227,11 @@ export default{
         }
 
         if(this.buss === 'si'){
-          router.push('/businessregister')
+          this.$router.push({name: 'BusinessRegister'})
         }else{
-          router.push({name: 'ulogin'})
+          this.$router.push({name: 'ulogin'})
         }
+
       }).catch( function (error){
         console.log(error.response.data.status)
         console.log(error.response)
