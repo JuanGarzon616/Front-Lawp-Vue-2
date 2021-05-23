@@ -26,17 +26,16 @@ const routes = [
     name: 'ulogin',
     component: () => import('../views/layouts/users/ulogin'),
     beforeEnter: (to, from, next) => {
-      if (to.name !== 'Home' && !store.getters.uToken) {
-        //next({name: 'Home'})
-        router.push({name: 'Home'})
-      }
-      else if (JSON.parse(JSON.stringify(store.getters.rol)).is_admin === null) {
-        next()
-        //next({name: 'Home'})
+      if (store.getters.uToken && JSON.parse(store.getters.user)) {
+        if(JSON.parse(store.getters.user).is_admin===3){
+          next()
+        }
+        else {
+          next({name: 'Home'})
+        }
       }
       else {
-        router.push({name: 'Home'})
-        // next()
+        next({name: 'Home'})
       }
     }
   },{
@@ -44,16 +43,16 @@ const routes = [
     name: 'BusinessRegister',
     component: () => import('@/views/layouts/business/BusinessRegister'),
     beforeEnter: (to, from, next) => {
-      if (to.name !== 'Home' && !store.getters.uToken) {
-        router.push({name: 'Home'})
-        //next({name: 'Home'})
-      }
-      else if (store.getters.rol) {
-        router.push({name: 'Home'})
-        //next({name: 'Home'})
+      if (store.getters.uToken && JSON.parse(store.getters.user)) {
+        if(JSON.parse(store.getters.user).is_admin===3){
+          next()
+        }
+        else {
+          next({name: 'Home'})
+        }
       }
       else {
-        next()
+        next({name: 'Home'})
       }
     }
   },{
@@ -61,17 +60,16 @@ const routes = [
     name: 'BusinessLogin',
     component: () => import('@/views/layouts/business/BusinessLogin'),
     beforeEnter: (to, from, next) => {
-      if (to.name !== 'Home' && !store.getters.uToken) {
-        router.push({name: 'Home'})
-        //next({name: 'Home'})
-      }
-      //else if (store.getters.rol !== 2) next({ name: 'Home' })
-      else if(store.getters.rol === 2) {
-        next()
+      if (store.getters.uToken && JSON.parse(store.getters.user)) {
+        if(JSON.parse(store.getters.user).is_admin===3){
+          next()
+        }
+        else {
+          next({name: 'Home'})
+        }
       }
       else {
-        router.push({name: 'Home'})
-        //next({name: 'Home'})
+        next({name: 'Home'})
       }
     }
   },{
