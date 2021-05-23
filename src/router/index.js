@@ -28,8 +28,9 @@ const routes = [
     beforeEnter: (to, from, next) => {
       let token = localStorage.getItem('token')
       let user = localStorage.getItem('user')
-      if (!token && JSON.parse(user).is_admin !==3) next({name: 'Home'})
-      else next()
+      if(user) var rol = JSON.parse(user).is_admin
+      if (token && rol ===3) next()
+      else next({name: 'Home'})
     }
   },{
     path: '/businessregister',
@@ -38,8 +39,9 @@ const routes = [
     beforeEnter: (to, from, next) => {
       let token = localStorage.getItem('token')
       let user = localStorage.getItem('user')
-      if (!token && JSON.parse(user).is_admin !==3) next({name: 'Home'})
-      else next()
+      if(user) var rol = JSON.parse(user).is_admin
+      if (token && rol ===3) next()
+      else next({name: 'Home'})
     }
   },{
     path: '/BusinessLogin',
@@ -48,8 +50,20 @@ const routes = [
     beforeEnter: (to, from, next) => {
       let token = localStorage.getItem('token')
       let user = localStorage.getItem('user')
-      if (!token && JSON.parse(user).is_admin !==2) next({name: 'Home'})
-      else next()
+      if(user) var rol = JSON.parse(user).is_admin
+      if (token && rol ===2) next()
+      else next({name: 'Home'})
+    }
+  },{
+    path: '/AdminLogin',
+    name: 'AdminLogin',
+    component: () => import('@/views/layouts/admin/AdminLogin'),
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      let user = localStorage.getItem('user')
+      if(user) var rol = JSON.parse(user).is_admin
+      if (token && rol === 1) next()
+      else next({name: 'Home'})
     }
   },{
     path: '/login',

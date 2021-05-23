@@ -24,8 +24,10 @@ export default {
             axios.get(`${state.UrlUser}`,{'headers': {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                 }}).then(response=>{
+                    console.log(response)
                 localStorage.removeItem('user')
                 localStorage.setItem('user', JSON.stringify(response.data.user))
+
             }).catch(function (error){console.log(error)})
         }
 

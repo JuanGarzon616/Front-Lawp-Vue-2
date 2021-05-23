@@ -1,10 +1,13 @@
 import axios from "axios"
+import Swal from "sweetalert2"
+//import router from "@/router";
 
 export default {
     namespaced: true,
     state: {
         urldepartament: 'http://127.0.0.1:8000/api/departament',
         urleconomic: 'http://127.0.0.1:8000/api/economicsectors/',
+        userAuth: 'http://127.0.0.1:8000/api/user/login',
         departaments: [],
         municipalities: [],
         economic: []
@@ -26,8 +29,28 @@ export default {
         async getEconomic({state, commit}){
             const response = await axios.get(`${state.urleconomic}`)
             commit('setEconomic', response.data)
+        },
+        async auth({state,dispatch},data){
+            return await axios.post(`${state.userAuth}`,data)
+                .then(response=>{
+                    localStorage.clear()
+                    localStorage.setItem('token',JSON.stringify(response.data.token))
+                    console.log(response)
+                    dispatch('a/getUser','',{root:true})
+                    // if(JSON.parse(localStorage.getItem('user')).is_admin===3){
+                    //     router.push({name: 'ulogin'})
+                    // }else if(JSON.parse(localStorage.getItem('user')).is_admin===2){
+                    //     router.push({name: 'BusinessLogin'})
+                    // }else if(JSON.parse(localStorage.getItem('user')).is_admin===1){
+                    //     router.push({name: 'AdminLogin'})
+                    // }else{
+                    //     router.push({name: 'Home'})
+                    // }
+                }).catch(error=>{
+                    console.log(error.response)
+                    Swal.fire('Error','Credenciales invalidas revisa.','error')
+                })
         }
-
     },
     getters: {
         allDepartaments: (state) => state.departaments,
