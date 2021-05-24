@@ -1,4 +1,5 @@
 import axios from "axios"
+import router from "@/router";
 
 export default {
     namespaced: true,
@@ -23,14 +24,25 @@ export default {
         getUser({state}){
             axios.get(`${state.UrlUser}`,{'headers': {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-                }}).then(response=>{
-                    console.log(response)
+            }})
+            .then(response=>{
+                console.log(response)
                 localStorage.removeItem('user')
                 localStorage.setItem('user', JSON.stringify(response.data.user))
-
-            }).catch(function (error){console.log(error)})
+                let rol = response.data.user.is_admin
+                if(rol===3){
+                    router.push({name: 'ulogin'})
+                }else if(rol===2){
+                    router.push({name: 'BusinessLogin'})
+                }else if(rol===1){
+                    router.push({name: 'AdminLogin'})
+                }else{
+                    router.push({name: 'Home'})
+                }
+            }).catch(function (error){
+                console.log(error)
+            })
         }
-
     },
     getters: {
 

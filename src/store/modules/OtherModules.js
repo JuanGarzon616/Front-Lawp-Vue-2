@@ -37,15 +37,6 @@ export default {
                     localStorage.setItem('token',JSON.stringify(response.data.token))
                     console.log(response)
                     dispatch('a/getUser','',{root:true})
-                    // if(JSON.parse(localStorage.getItem('user')).is_admin===3){
-                    //     router.push({name: 'ulogin'})
-                    // }else if(JSON.parse(localStorage.getItem('user')).is_admin===2){
-                    //     router.push({name: 'BusinessLogin'})
-                    // }else if(JSON.parse(localStorage.getItem('user')).is_admin===1){
-                    //     router.push({name: 'AdminLogin'})
-                    // }else{
-                    //     router.push({name: 'Home'})
-                    // }
                 }).catch(error=>{
                     console.log(error.response)
                     Swal.fire('Error','Credenciales invalidas revisa.','error')
