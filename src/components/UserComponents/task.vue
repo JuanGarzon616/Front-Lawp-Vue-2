@@ -6,8 +6,8 @@
     <div class="text-white text-2xl pt-3">
       <p v-on:click="pqrOptions" class="pl-10 py-3 hover:bg-gray-700"><i v-if="this.$store.getters.pqr" class="far fa-envelope-open"></i><i v-if="!this.$store.getters.pqr" class="far fa-envelope"></i> PQR</p>
       <pqrOptions v-if="this.$store.getters.pqr"></pqrOptions>
-      <p class="pl-10 py-3 hover:bg-gray-700"><i class="fas fa-user"></i> Peril</p>
-      <userOptions></userOptions>
+      <p v-on:click="changeUserOp" class="pl-10 py-3 hover:bg-gray-700"><i class="fas fa-user"></i> Peril</p>
+      <userOptions v-if="this.$store.getters.userOp"></userOptions>
       <p class="pl-10 py-3 hover:bg-gray-700"><i class="fas fa-business-time"></i> Avanzado</p>
     </div>
   </div>
@@ -25,8 +25,12 @@ export default {
   },
   methods: {
     ...mapActions(['changePqr']),
+    ...mapActions(['changeUserOp']),
     pqrOptions(){
       this.changePqr()
+    },
+    userOptions(){
+      this.changeUserOp()
     }
   }
 }

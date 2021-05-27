@@ -17,10 +17,12 @@ export default new Vuex.Store({
     },
     bar: false,
     pqrOptions: false,
+    userOptions: false
   },
   mutations: {
     setPqr: (state) => (state.pqrOptions = !state.pqrOptions),
-    setBar: (state) => (state.bar = !state.bar)
+    setBar: (state) => (state.bar = !state.bar),
+    setUserOp: (state) => (state.userOptions = !state.userOptions),
   },
   actions: {
     changeBar({commit}){
@@ -28,8 +30,10 @@ export default new Vuex.Store({
     },
     changePqr({commit}){
       commit("setPqr")
-    }
-
+    },
+    changeUserOp({commit}){
+      commit('setUserOp')
+    },
   },
   modules: {
     a: UsersModules,
@@ -45,5 +49,6 @@ export default new Vuex.Store({
     business: (state) => state.token,
     bar: (state) => state.bar,
     pqr: (state) => state.pqrOptions,
+    userOp: (state) => state.userOptions,
   }
 })
