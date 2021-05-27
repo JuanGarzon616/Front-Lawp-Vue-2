@@ -14,12 +14,21 @@ export default new Vuex.Store({
       if(state.User){
         return JSON.parse(state.user).is_admin
       }
-    }
+    },
+    bar: false,
+    pqrOptions: false,
   },
   mutations: {
-
+    setPqr: (state) => (state.pqrOptions = !state.pqrOptions),
+    setBar: (state) => (state.bar = !state.bar)
   },
   actions: {
+    changeBar({commit}){
+      commit('setBar')
+    },
+    changePqr({commit}){
+      commit("setPqr")
+    }
 
   },
   modules: {
@@ -34,5 +43,7 @@ export default new Vuex.Store({
     rol: (state) => state.rol,
     user: (state) => state.User,
     business: (state) => state.token,
+    bar: (state) => state.bar,
+    pqr: (state) => state.pqrOptions,
   }
 })

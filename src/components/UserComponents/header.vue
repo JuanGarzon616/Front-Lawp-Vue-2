@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex justify-between flex-wrap items-center h-16 bg-gradient-to-r from-gray-900 via-blue-200 to-blue-50 pr-9 ">
 
-    <p class="h-full pl-4 flex items-center"><i class="fas fa-bars fa-2x"></i></p>
+    <p class="hover:bg-gray-700 rounded-full h-full p-4 flex items-center"><i v-on:click="bar" class="fas fa-bars fa-2x"></i></p>
     <nav class="flex flex-wrap items-center">
       <div class="flex flex-col text-right pr-4">
         <b>{{name}} {{lname}}</b>
@@ -16,6 +16,10 @@
 </template>
 
 <script>
+//import store from 'vuex'
+
+import {mapActions} from "vuex";
+
 export default {
   name: "user-header",
   data(){
@@ -25,9 +29,10 @@ export default {
       lname: JSON.parse(localStorage.getItem('user')).last_names
     }
   },
-  methods:{
-    hola(){
-      console.log(JSON.parse(localStorage.getItem('user')).image)
+  methods: {
+    ...mapActions(['changeBar']),
+    bar(){
+      this.changeBar()
     }
   }
 }

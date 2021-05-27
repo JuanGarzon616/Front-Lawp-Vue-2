@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-screen flex">
     <span>
-      <task></task>
+      <task v-if="this.$store.getters.bar"></task>
     </span>
     <div class="w-full">
       <span>
