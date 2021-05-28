@@ -17,12 +17,14 @@ export default new Vuex.Store({
     },
     bar: false,
     pqrOptions: false,
-    userOptions: false
+    userOptions: false,
+    busOption: false,
   },
   mutations: {
     setPqr: (state) => (state.pqrOptions = !state.pqrOptions),
     setBar: (state) => (state.bar = !state.bar),
     setUserOp: (state) => (state.userOptions = !state.userOptions),
+    setBusOp: (state) => (state.busOption = !state.busOption),
   },
   actions: {
     changeBar({commit}){
@@ -33,6 +35,9 @@ export default new Vuex.Store({
     },
     changeUserOp({commit}){
       commit('setUserOp')
+    },
+    changeBusOp({commit}){
+      commit('setBusOp')
     },
   },
   modules: {
@@ -50,5 +55,6 @@ export default new Vuex.Store({
     bar: (state) => state.bar,
     pqr: (state) => state.pqrOptions,
     userOp: (state) => state.userOptions,
+    busOp: (state) => state.busOption,
   }
 })

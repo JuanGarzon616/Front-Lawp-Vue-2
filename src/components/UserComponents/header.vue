@@ -1,11 +1,11 @@
 <template>
   <div class="w-full flex justify-between flex-wrap items-center h-16 bg-gradient-to-r from-gray-900 via-blue-200 to-blue-50 pr-9 ">
 
-    <p class="hover:bg-gray-700 rounded-full h-full p-4 flex items-center"><i v-on:click="bar" class="fas fa-bars fa-2x"></i></p>
+    <p class="hover:bg-gray-700 rounded-full h-full p-4 flex items-center text-gray-400"><i v-on:click="bar" class="fas fa-bars fa-2x"></i></p>
     <nav class="flex flex-wrap items-center">
       <div class="flex flex-col text-right pr-4">
         <b>{{name}} {{lname}}</b>
-        <a href="">Salir.</a>
+        <router-link  to="/"><p v-on:click="destroy">Salir <i class="fas fa-sign-out-alt"></i></p></router-link>
       </div>
 
       <img class="h-12 rounded-full border-4 border-blue-200" v-bind:src=image alt="">
@@ -31,6 +31,9 @@ export default {
   },
   methods: {
     ...mapActions(['changeBar']),
+    destroy(){
+      localStorage.clear()
+    },
     bar(){
       this.changeBar()
     }
