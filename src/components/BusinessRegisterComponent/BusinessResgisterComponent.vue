@@ -1,8 +1,8 @@
 <template>
-  <div class="flex justify-center flex-wrap content-center bg-gray-100 min-h-screen">
-
-    <form v-on:submit.prevent="submit" action="" class="bg-white w-full sm:w-1/2 h-auto rounded-lg shadow-2xl">
-      <div class="bg-blue-200 rounded-lg p-5">
+  <div class="flex justify-center flex-wrap content-center bg-gray-100 ">
+<!--min-h-screen  sm:w-1/2-->
+    <form v-on:submit.prevent="submit" action="" class="bg-white w-full h-auto rounded-lg shadow-2xl">
+      <div class="bg-gray-700 text-gray-200 rounded-lg p-5">
         <h1 class="text-3xl" >Registro Empresarial <i class="fas fa-desktop"></i></h1>
         <h1 class="py-5" >Crea una cuenta gratis para poder usar nuestros servicios.</h1>
       </div>
@@ -74,7 +74,7 @@
           </select>
         </div>
 
-        <input type="submit" class="bg-blue-200 hover:bg-blue-300 py-2 px-4 rounded w-20 col-span-1 md:col-span-2"  value="Crear">
+        <input type="submit" class="bg-gray-700 text-gray-200 hover:bg-gray-500 py-2 px-4 rounded w-20 col-span-1 md:col-span-2"  value="Crear">
       </div>
 
     </form>

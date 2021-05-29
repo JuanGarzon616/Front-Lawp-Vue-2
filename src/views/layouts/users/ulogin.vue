@@ -1,30 +1,36 @@
 <template>
-  <div class="max-w-screen flex md:flex-row-reverse flex-col ">
+<!--    <div class="h-16 max-w-screen"></div>-->
+    <div class="max-w-screen flex md:flex-row-reverse flex-col ">
 
-
-    <div class="w-full">
+      <div class="w-full">
+        <span>
+          <userHeader class="z-20"></userHeader>
+        </span>
+        <div class="pt-16 min-h-screen bg-gray-200 flex justify-center flex-wrap items-center">
+<!--          <h1>user login asdasd</h1>-->
+          <bus class="w-full sm:w-9/12 lg:w-1/2 z-0 md:z-10"></bus>
+        </div>
+      </div>
       <span>
-        <userHeader></userHeader>
+        <p class="md:w-60 w-0 md:min-h-screen h-0" v-if="this.$store.getters.bar"></p>
       </span>
-      <span>
-        <h1>user login asdasd</h1>
+      <span class="fixed inset-x-0 top-16">
+        <task v-if="this.$store.getters.bar"></task>
       </span>
     </div>
-    <span class="md:static fixed inset-x-0 top-16">
-      <task v-if="this.$store.getters.bar"></task>
-    </span>
-  </div>
 </template>
 
 <script>
 import userHeader from "@/components/UserComponents/header";
 import task from "@/components/UserComponents/task";
+import BusinessResgisterComponent from "@/components/BusinessRegisterComponent/BusinessResgisterComponent";
 
 export default {
   name: 'ulogin',
   components: {
+    'bus': BusinessResgisterComponent,
     userHeader,
-    task//
+    task//fixed inset-x-0 top-16
   }
 }
 </script>
