@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 inset-x-0 w-full flex justify-between flex-wrap items-center h-16 bg-gradient-to-r from-gray-900 via-gray-900 to-blue-50 pr-9 ">
+  <div class="fixed top-0 inset-x-0 w-full flex justify-between flex-wrap items-center h-16 bg-gradient-to-r from-gray-900 via-gray-700 to-blue-50 pr-9 ">
 
     <p v-on:click="bar" class="hover:bg-gray-700 rounded-full h-full p-4 flex items-center text-gray-400"><i class="fas fa-bars fa-2x"></i></p>
     <nav class="flex flex-wrap items-center">

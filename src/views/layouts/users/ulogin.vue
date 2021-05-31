@@ -7,8 +7,8 @@
           <userHeader class="z-20"></userHeader>
         </span>
         <div class="pt-16 min-h-screen bg-gray-200 flex justify-center flex-wrap items-center">
-<!--          <h1>user login asdasd</h1>-->
-          <bus class="w-full sm:w-9/12 lg:w-1/2 z-0 md:z-10"></bus>
+          <h1 class="z-0 md:z-10">user login asdasd</h1>
+<!--          <bus class="w-full sm:w-9/12 lg:w-1/2 z-0 md:z-10"></bus>-->
         </div>
       </div>
       <span>
@@ -23,14 +23,14 @@
 <script>
 import userHeader from "@/components/UserComponents/header";
 import task from "@/components/UserComponents/task";
-import BusinessResgisterComponent from "@/components/BusinessRegisterComponent/BusinessResgisterComponent";
+// import BusinessResgisterComponent from "@/components/BusinessRegisterComponent/BusinessResgisterComponent";
 
 export default {
   name: 'ulogin',
   components: {
-    'bus': BusinessResgisterComponent,
+    // 'bus': BusinessResgisterComponent,
     userHeader,
-    task//fixed inset-x-0 top-16
+    task
   }
 }
 </script>
