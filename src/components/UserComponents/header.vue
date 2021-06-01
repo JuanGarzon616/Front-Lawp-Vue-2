@@ -4,7 +4,7 @@
     <p v-on:click="bar" class="hover:bg-gray-700 rounded-full h-full p-4 flex items-center text-gray-400"><i class="fas fa-bars fa-2x"></i></p>
     <nav class="flex flex-wrap items-center">
       <div class="flex flex-col text-right pr-4">
-        <b>{{name}} {{lname}}</b>
+        <b>{{name.toUpperCase()}}</b>
         <router-link  to="/"><p v-on:click="destroy">Salir <i class="fas fa-sign-out-alt"></i></p></router-link>
       </div>
 

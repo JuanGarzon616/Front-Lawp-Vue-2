@@ -6,9 +6,10 @@
         <span>
           <userHeader class="z-20"></userHeader>
         </span>
-        <div class="pt-16 min-h-screen bg-gray-200 flex justify-center flex-wrap items-center">
-          <h1 class="z-0 md:z-10">user login asdasd</h1>
-<!--          <bus class="w-full sm:w-9/12 lg:w-1/2 z-0 md:z-10"></bus>-->
+        <div class="pl-10 pt-36 md:pl-24 min-h-screen bg-gray-200 ">
+          <h1 class="text-3xl z-0 md:z-10"><b>Bienvenido</b></h1>
+          <p class="text-xl">Aqui puedes ver y gestionar tus Pqr.</p>
+<!--          <bus class="w-full sm:w-9/12 lg:w-1/2 z-0 md:z-10"></bus>flex justify-center flex-wrap items-center -->
         </div>
       </div>
       <span>
