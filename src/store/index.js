@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import UsersModules from "@/store/modules/UsersModules"
 import BusinessModules from "@/store/modules/BusinessModules"
 import OtherModules from "@/store/modules/OtherModules"
+import PqrsModules from "@/store/modules/PqrsModules";
 
 Vue.use(Vuex)
 
@@ -43,7 +44,8 @@ export default new Vuex.Store({
   modules: {
     a: UsersModules,
     b: BusinessModules,
-    c: OtherModules
+    c: OtherModules,
+    d: PqrsModules,
   },
   getters: {
     uToken: state => {

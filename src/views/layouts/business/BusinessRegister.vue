@@ -10,7 +10,7 @@
 <script>
 import BusinessResgisterComponent from "@/components/BusinessRegisterComponent/BusinessResgisterComponent";
 
-export default{
+export default {
   name: 'BusinessRegister',
   components: {
     BusinessResgisterComponent
