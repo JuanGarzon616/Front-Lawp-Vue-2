@@ -9,7 +9,7 @@
         <div class="pl-10 pt-36 md:pl-24 min-h-screen bg-gray-200 ">
           <h1 class="text-3xl z-0 md:z-10"><b>Bienvenido</b></h1>
           <p class="text-xl">Aqui puedes ver y gestionar tus Pqr.</p>
-          <table class="max-h-50 block border-collapse border border-green-800 overflow-x-scroll">
+          <table class="max-h-50 w-52 block border-collapse border border-green-800 overflow-x-scroll">
             <tr>
               <td>Asunto</td>
               <td>Fecha de Creacion</td>
