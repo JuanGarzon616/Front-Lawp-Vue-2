@@ -8,12 +8,10 @@
       <div class="pl-0 pt-36 md:pl-24 min-h-screen bg-gray-200 flex flex-col">
         <h1 class="text-3xl z-0 lg:z-10"><b>Bienvenido</b></h1>
         <p class="text-xl z-0 lg:z-10">Aqui puedes ver y gestionar tus Pqr.</p>
-        <input type="text" class="mt-10 ml-0 md:ml-10 focus:outline-none focus:ring focus:border-blue-300 z-0 lg:z-10 rounded-full w-full md:w-96 p-3">
+        <input v-on:change="event=>submit(event)" type="text"
+               class="mt-10 ml-0 md:ml-10 focus:outline-none focus:ring focus:border-blue-300 z-0 lg:z-10 rounded-full w-full md:w-96 p-3"
+               placeholder="Buscar por asunto">
         <div class="flex pl-0 md:pl-10 ">
-          <!--          <input v-on:change="event=>submit(event)"-->
-          <!--                 class="focus:outline-none focus:ring focus:border-blue-300 z-0 lg:z-10 rounded-full w-full md:w-96 p-3"-->
-          <!--                 type="text" placeholder="Buscar por asunto">-->
-          <!--       block   -->
           <table class="block overflow-scroll w-full md:w-11/12 z-0 lg:z-10 bg-white rounded-lg  sm:shadow-lg my-5"
                  style="height: 60vh">
             <thead class=" w-full">
