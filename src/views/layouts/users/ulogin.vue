@@ -1,69 +1,55 @@
 <template>
+  <div class="max-w-screen flex md:flex-row-reverse flex-col ">
 
-<!--  <div class="max-w-screen flex md:flex-row-reverse flex-col ">-->
-
-<!--    <div class="w-full">-->
-<!--        <span>-->
-<!--          <userHeader class="z-20"></userHeader>-->
-<!--        </span>-->
-<!--      <div class="pl-10 pt-36 min-h-screen bg-gray-200 flex ">-->
-<!--        <h1 class="z-0 md:z-10">user login asdasd</h1>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <span>-->
-<!--        <p class="md:w-60 w-0 md:min-h-screen h-0" v-if="this.$store.getters.bar"></p>-->
-<!--      </span>-->
-<!--    <span class="fixed inset-x-0 top-16">-->
-<!--        <task v-if="this.$store.getters.bar"></task>-->
-<!--      </span>-->
-<!--  </div>-->
-<!--w-full md:w-10/12          md:z-10 max-h-52  block border-collapse border border-green-800 overflow-x-scroll   <div class="h-16 max-w-screen"></div>-->
-    <div class="max-w-screen flex md:flex-row-reverse flex-col ">
-
-      <div class="w-full">
+    <div class="w-full ">
         <span>
           <userHeader class="z-20"></userHeader>
         </span>
-        <div class="pl-0 pt-36 md:pl-24 min-h-screen bg-gray-200 flex flex-col">
-          <h1 class="text-3xl z-0 lg:z-10"><b>Bienvenido</b></h1>
-          <p class="text-xl z-0 lg:z-10">Aqui puedes ver y gestionar tus Pqr.</p>
-          <div class="pt-20 pl-0 md:pl-10 flex ">
-<!--       w-full md:    -->
-            <table class="block table-fixed text-center w-auto   z-0 lg:z-10 ">
-              <thead class="table-fixed w-full">
-                <tr class="bg-blue-200">
-                  <th class="min-w-60 w-96">#</th>
-                  <th class="min-w-60 w-96">Asunto</th>
-                  <th class="w-96">Descripcion</th>
-                  <th class="w-96">FechadeCreacion</th>
-                  <th class="min-w-60 w-96">Estado</th>
-                  <th class="w-96">Ver mas</th>
-                </tr>
-              </thead>
-              <tbody class=" table-fixed w-auto">
-                <tr class="w-auto" v-for="(pqr, index) in pqrsUser" :key="index">
-                  <td class=" ">{{index}}</td>
-                  <td class=" ">{{pqr.affair}}</td>
-                  <td class=" ">{{pqr.description}}</td>
-                  <td class=" ">{{pqr.date}}</td>
-                  <td v-if="pqr.fk_status_id===1" class="w-96 ">Activo</td>
-                  <td v-if="pqr.fk_status_id===2" class="w-96 ">Resuelto</td>
-                  <td v-if="pqr.fk_status_id===3" class="w-96 ">En proceso</td>
-                  <td class=" ">ver mas</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
+      <div class="pl-0 pt-36 md:pl-24 min-h-screen bg-gray-200 flex flex-col">
+        <h1 class="text-3xl z-0 lg:z-10"><b>Bienvenido</b></h1>
+        <p class="text-xl z-0 lg:z-10">Aqui puedes ver y gestionar tus Pqr.</p>
+        <input type="text" class="mt-10 ml-0 md:ml-10 focus:outline-none focus:ring focus:border-blue-300 z-0 lg:z-10 rounded-full w-full md:w-96 p-3">
+        <div class="flex pl-0 md:pl-10 ">
+          <!--          <input v-on:change="event=>submit(event)"-->
+          <!--                 class="focus:outline-none focus:ring focus:border-blue-300 z-0 lg:z-10 rounded-full w-full md:w-96 p-3"-->
+          <!--                 type="text" placeholder="Buscar por asunto">-->
+          <!--       block   -->
+          <table class="block overflow-scroll w-full md:w-11/12 z-0 lg:z-10 bg-white rounded-lg  sm:shadow-lg my-5"
+                 style="height: 60vh">
+            <thead class=" w-full">
+            <tr class="bg-teal-400  rounded-l-lg sm:rounded-none">
+              <th class="p-3 text-left w-3">#</th>
+              <th class="p-3 text-left w-10">Asunto</th>
+              <th class="p-3 text-left">Descripcion</th>
+              <th class="p-3 text-left w-32">Fecha de Creacion</th>
+              <th class="p-3 text-left w-24">Estado</th>
+              <th class="p-3 text-left min-w-max w-24">Ver mas</th>
+            </tr>
+            </thead>
+            <tbody class="">
+            <tr v-for="(pqr, index) in pqrsUser" :key="index" class="">
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ index }}</td>
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ pqr.affair }}</td>
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ pqr.description }}</td>
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ pqr.date }}</td>
+              <td v-if="pqr.fk_status_id===1" class="border-grey-light border hover:bg-gray-100 p-3 ">Activo</td>
+              <td v-if="pqr.fk_status_id===2" class="border-grey-light border hover:bg-gray-100 p-3 ">Resuelto</td>
+              <td v-if="pqr.fk_status_id===3" class="border-grey-light border hover:bg-gray-100 p-3 ">En proceso</td>
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">ver mas</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
+
       </div>
-      <span>
+    </div>
+    <span>
         <p class="md:w-60 w-0 md:min-h-screen h-0" v-if="this.$store.getters.bar"></p>
       </span>
-      <span class="fixed inset-x-0 top-16 z-0">
+    <span class="fixed inset-x-0 top-16 z-0">
         <task v-if="this.$store.getters.bar"></task>
       </span>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -81,15 +67,38 @@ export default {
     this.getPqrUser()
   },
   computed: {
-    ...mapGetters('d',['pqrsUser'])
+    ...mapGetters('d', ['pqrsUser'])
   },
   methods: {
-    ...mapActions('d',['getPqrUser']),
-
+    ...mapActions('d', ['getPqrUser']),
+    submit(event) {
+      console.log(event.target.value)
+    }
   }
 }
 </script>
 
 <style scoped>
+html,
+body {
+  height: 100%;
+}
 
+@media (min-width: 640px) {
+  table {
+    display: inline-table !important;
+  }
+
+  thead tr:not(:first-child) {
+    display: none;
+  }
+}
+
+/*td:not(:last-child) {*/
+/*  border-bottom: 0;*/
+/*}*/
+
+/*th:not(:last-child) {*/
+/*  border-bottom: 2px solid rgba(0, 0, 0, .1);*/
+/*}*/
 </style>

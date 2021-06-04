@@ -10,7 +10,7 @@
         <router-link to="/"><p v-on:click="destroy">Salir <i class="fas fa-sign-out-alt"></i></p></router-link>
       </div>
 
-      <img class="h-12 rounded-full border-4 border-blue-200" v-bind:src=image alt="">
+      <img class="h-12 rounded-full border-4 border-blue-300" v-bind:src=image alt="User Image">
     </nav>
 
 

@@ -1,4 +1,6 @@
 import axios from "axios";
+import Swal from "sweetalert2";
+import router from "@/router";
 
 export default {
     namespaced: true,
@@ -9,7 +11,7 @@ export default {
         attchments: [],
     },
     mutations: {
-        setPqrs: (state, pqrs)=>(state.pqrs = pqrs),
+        setPqrs: (state, pqrs) => (state.pqrs = pqrs),
     },
     actions: {
         getPqrUser({state, commit}) {
@@ -19,7 +21,12 @@ export default {
                 }
             }).then(response => {
                 console.log(response)
-                commit('setPqrs',response.data)
+                if (response.data.status === 'Token is Expired') {
+                    localStorage.clear()
+                    Swal.fire('','Su sesion ha cadudaco.','info')
+                    router.push('/')
+                }
+                commit('setPqrs', response.data)
             }).catch(error => {
                 console.log(error)
             })
