@@ -11,7 +11,6 @@
         <input @keyup="event=>submit(event)" type="text"
                class="mt-10 ml-0 md:ml-10 focus:outline-none focus:ring focus:border-blue-300 z-0 lg:z-10 rounded-full w-full md:w-96 p-3"
                placeholder="Buscar por asunto" v-model="valor">
-        <p>{{ valor }}</p>
         <div class="flex pl-0 md:pl-10 ">
           <table
               class="block overflow-scroll w-full md:w-11/12 z-0 lg:z-10 bg-white rounded-lg sm:shadow-lg my-5 max-h-96">
