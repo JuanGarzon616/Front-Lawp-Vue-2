@@ -27,14 +27,14 @@
             <tbody class="">
             <tr v-for="(pqr, index) in pqrsUser" :key="index" class="">
 
-            <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ index }}</td>
-            <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ pqr.affair }}</td>
-            <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ pqr.description }}</td>
-            <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ pqr.date }}</td>
-            <td v-if="pqr.fk_status_id===1" class="border-grey-light border hover:bg-gray-100 p-3 ">Activo</td>
-            <td v-if="pqr.fk_status_id===2" class="border-grey-light border hover:bg-gray-100 p-3 ">Resuelto</td>
-            <td v-if="pqr.fk_status_id===3" class="border-grey-light border hover:bg-gray-100 p-3 ">En proceso</td>
-            <td class="border-grey-light border hover:bg-gray-100 p-3 ">ver mas</td>
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ index }}</td>
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ pqr.affair }}</td>
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ pqr.description }}</td>
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">{{ pqr.date }}</td>
+              <td v-if="pqr.fk_status_id===1" class="border-grey-light border hover:bg-gray-100 p-3 ">Activo</td>
+              <td v-if="pqr.fk_status_id===2" class="border-grey-light border hover:bg-gray-100 p-3 ">Resuelto</td>
+              <td v-if="pqr.fk_status_id===3" class="border-grey-light border hover:bg-gray-100 p-3 ">En proceso</td>
+              <td class="border-grey-light border hover:bg-gray-100 p-3 ">ver mas</td>
             </tr>
             <tr v-if="pqrsUser.affair">
               <td colspan="6" class="p-10 text-center">No se encontraron resultados.</td>
@@ -42,7 +42,6 @@
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
     <span>

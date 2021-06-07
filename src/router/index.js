@@ -32,6 +32,18 @@ const routes = [
       if (token && rol ===3) next()
       else next({name: 'Home'})
     }
+  },
+  {
+    path: '/crearpqr',
+    name: 'createpqr',
+    component: () => import('../views/layouts/users/createpqr'),
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      let user = localStorage.getItem('user')
+      if(user) var rol = JSON.parse(user).is_admin
+      if (token && rol ===3) next()
+      else next({name: 'Home'})
+    }
   },{
     path: '/businessregister',
     name: 'BusinessRegister',
