@@ -10,6 +10,7 @@
         <p class="text-xl z-0 lg:z-10">Aqui puedes ver y gestionar tus Pqr.</p>
         <div>
           <form action="">
+            <p v-on:click="getBusName">fdg</p>
 
           </form>
         </div>
@@ -27,12 +28,16 @@
 <script>
 import userHeader from "@/components/UserComponents/header";
 import task from "@/components/UserComponents/task";
+import {mapActions} from "vuex";
 
 export default {
   name: "createpqr",
   components: {
     userHeader,
     task
+  },
+  methods: {
+    ...mapActions('b', ['getBusName'])
   }
 }
 </script>

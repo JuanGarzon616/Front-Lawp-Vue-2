@@ -6,6 +6,8 @@ export default {
     namespaced: true,
     state: {
         UrlBusinessRegister: 'http://127.0.0.1:8000/api/business/register',
+        UrlBusinessGet: 'http://127.0.0.1:8000/api/getbusi/',
+        namesBusi: [],
     },
     mutations: {},
     actions: {
@@ -39,6 +41,17 @@ export default {
                 }
             })
         },
+        getBusName({state}) {
+            axios.get(`${state.UrlBusinessGet}`, {
+                'headers': {
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                }
+            }).then(response =>{
+                console.log(response)
+            }).catch(error=>{
+                console.log(error)
+            })
+        }
     },
     getters: {}
 }
