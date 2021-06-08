@@ -9,7 +9,9 @@ export default {
         UrlBusinessGet: 'http://127.0.0.1:8000/api/getbusi/',
         namesBusi: [],
     },
-    mutations: {},
+    mutations: {
+        fillNameBus: (state, names) => (state.namesBusi = names),
+    },
     actions: {
         saveBusiness({state, dispatch/*, rootState*/}, BusinessData) {
             console.log(BusinessData)
@@ -41,17 +43,25 @@ export default {
                 }
             })
         },
-        getBusName({state}) {
+        getBusName({state, commit}) {
             axios.get(`${state.UrlBusinessGet}`, {
                 'headers': {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                 }
-            }).then(response =>{
+            }).then(response => {
                 console.log(response)
-            }).catch(error=>{
+                if (response.data.status === 'Token is Expired') {
+                    localStorage.clear()
+                    Swal.fire('', 'Su sesion ha cadudaco.', 'info')
+                    router.push('/')
+                }
+                commit('fillNameBus', response.data)
+            }).catch(error => {
                 console.log(error)
             })
         }
     },
-    getters: {}
+    getters: {
+        getNamesBusi: (state) => state.namesBusi
+    }
 }

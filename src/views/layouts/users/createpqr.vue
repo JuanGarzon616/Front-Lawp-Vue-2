@@ -9,9 +9,14 @@
         <h1 class="text-3xl z-0 lg:z-10"><b>Bienvenido</b></h1>
         <p class="text-xl z-0 lg:z-10">Aqui puedes ver y gestionar tus Pqr.</p>
         <div>
-          <form action="">
-            <p v-on:click="getBusName">fdg</p>
-
+          <form class="flex">
+            <p class="z-0 lg:z-10" v-on:click="getBusName">fdg</p>
+            <select class="z-0 lg:z-10" name="" id="">
+              <option disabled value="">Seleccione un elemento</option>
+              <option  v-for="(item, index) in this.$store.getters['b/getNamesBusi']" :key="index" value="">
+                {{item.bussiness_name}}
+              </option>
+            </select>
           </form>
         </div>
       </div>
@@ -36,6 +41,12 @@ export default {
     userHeader,
     task
   },
+  created() {
+    this.getBusName()
+  },
+  /*computed: {
+
+  },*/
   methods: {
     ...mapActions('b', ['getBusName'])
   }
