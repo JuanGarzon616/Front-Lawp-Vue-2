@@ -10,7 +10,7 @@
         <p class="text-xl z-0 lg:z-10">Aqui puedes ver y gestionar tus Pqr.</p>
         <div>
           <form class="flex">
-            <p class="z-0 lg:z-10" v-on:click="getBusName">fdg</p>
+
             <select class="z-0 lg:z-10" name="" id="">
               <option disabled value="">Seleccione un elemento</option>
               <option  v-for="(item, index) in this.$store.getters['b/getNamesBusi']" :key="index" value="">
