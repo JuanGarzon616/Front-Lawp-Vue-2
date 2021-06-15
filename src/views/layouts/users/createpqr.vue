@@ -46,16 +46,18 @@
               <div class="divin">
                 <label for="d" class="text-2xl">Fecha del momento</label>
                 <p>fechas antes de hoy.</p>
-                <input type="date" id="d" class="inputs" :class="{ 'postin': $v.fecha.$error }" v-model.trim="$v.fecha.$model">
+                <input type="date" id="d" class="inputs" :class="{ 'postin': $v.fecha.$error }"
+                       v-model.trim="$v.fecha.$model">
               </div>
             </div>
             <label for="desc" class="text-2xl">Descripcion</label>
             <p>Recuerda ser lo mas puntual posible</p>
-            <vue-editor :editorToolbar="customToolbar" v-model.trim="$v.content.$model" id="desc" :class="{ 'postin': $v.content.$error }"></vue-editor>
+            <vue-editor :editorToolbar="customToolbar" v-model.trim="$v.content.$model" id="desc"
+                        :class="{ 'postin': $v.content.$error }"></vue-editor>
             <p>Caracteres maximos 60.000 usted lleva ({{ content.length }})</p>
             <div class="mt-10">
               <div>
-                <p class="text-2xl">Adjuntos</p>
+                <p class="text-2xl" v-on:click="prueba">Adjuntos</p>
                 <p>Solo se permiten archivos jpeg,png,pdf de maximo 5mb.</p>
                 <div class="text-3xl">
                   <i v-on:click="sum" class="fas fa-plus"></i>
@@ -68,7 +70,9 @@
                   <label for="url">Url (no necesria)</label>
                   <input class="inputs" type="url" id="url" v-model.trim="$v.ur.$model">
                   <label for="file"></label>
-                  <input class="inputs" :class="{ 'postin': $v.ar.$error }" type="file" id="file" accept="image/*,.pdf" v-bind:value="$v.ar.$model">
+                  <!--                  v-bind:value="$v.ar.$model"-->
+                  <input class="inputs" :class="{ 'postin': $v.ar.$error }" type="file" id="file"
+                         @change="onFilePicked">
                 </div>
               </div>
             </div>
@@ -95,7 +99,8 @@ import userHeader from "@/components/UserComponents/header";
 import task from "@/components/UserComponents/task";
 import {mapActions} from "vuex";
 import {VueEditor} from "vue2-editor";
-import {required, maxLength} from 'vuelidate/lib/validators';
+import {required, maxLength, requiredIf} from 'vuelidate/lib/validators';
+import Swal from "sweetalert2";
 
 export default {
   name: "createpqr",
@@ -153,7 +158,10 @@ export default {
       maxLength: maxLength(254)
     },
     ar: {
-      required,
+      required: requiredIf(function (){
+        return this.numadj > 0;
+
+      })
       // maxLength: maxLength(254)
     }
   },
@@ -179,6 +187,37 @@ export default {
     },
     sum() {
       this.numadj++
+    },
+    onFilePicked(event) {
+      const files = event.target.files
+      let filesize = files[0].size
+      // console.log(filename)
+      if (filesize >= 1000000) {
+        Swal.fire("Error", 'El archivo es demaciado pesado.', 'error');
+        this.numadj--
+      } else {
+        /*const fileReader = new FileReader()
+        fileReader.addEventListener('load', () => {
+          this.imageUrl = fileReader.result
+        })
+        fileReader.readAsDataURL(files[0])*/
+
+        if (files[0].type === 'image/jpeg' || files[0].type === 'application/pdf' || files[0].type === 'image/png') {
+          // console.log('hola')
+          console.log('holabueno')
+          console.log(this.ar)
+          this.ar.push({
+            archive: files[0]
+          })
+        } else {
+          this.numadj--
+          console.log('hola malo')
+        }
+      }
+
+    },
+    prueba() {
+      console.log(this.ar.length)
     },
     less() {
       this.numadj--
