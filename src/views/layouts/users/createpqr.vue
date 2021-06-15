@@ -12,20 +12,21 @@
         </div>
         <!--        -->
         <div class="z-0 lg:z-10 bg-white p-10 mb-20 w-full lg:w-11/12 rounded-lg">
-          <form class="flex flex-col w-full">
+          <form v-on:submit.prevent="submit" class="flex flex-col w-full" enctype="multipart/form-data">
             <label for="affair" class="text-2xl">Asunto</label>
-            <input type="text"
+            <input type="text" :class="{ 'postin': $v.asunto.$error }"
                    class=" w-1/3 p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl"
-                   id="affair">
+                   id="affair" v-model.trim="$v.asunto.$model">
             <div class="py-10 grid gap-10 grid-cols-1 md:grid-cols-3 flex justify-between">
               <div class="divin">
-                <label for="empre" class="text-2xl">Empresa destinataria</label>
+                <label for="empresa" class="text-2xl">Empresa destinataria</label>
                 <p>Recuerde revisar el correo correcto</p>
                 <select
                     class=" z-0 lg:z-10 p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl"
-                    name="" id="empre">
+                    name="" id="empresa" v-model.trim="$v.empresa.$model" :class="{ 'postin': $v.empresa.$error }">
                   <option disabled value="">Seleccione un elemento</option>
-                  <option v-for="(item, index) in this.$store.getters['b/getNamesBusi']" :key="index" value="">
+                  <option v-for="(item, index) in this.$store.getters['b/getNamesBusi']" :key="index"
+                          v-bind:value=item.id>
                     {{ item.bussiness_name }}, {{ item.mail }}
                   </option>
                 </select>
@@ -34,7 +35,8 @@
                 <label for="pqrtype" class="text-2xl">Tipo de PQR</label>
                 <p></p>
                 <select name="" id="pqrtype"
-                        class=" z-0 lg:z-10 p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl">
+                        class=" z-0 lg:z-10 p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl"
+                        v-model.trim="$v.type.$model" :class="{ 'postin': $v.type.$error }">
                   <option disabled value="">Seleccione un elemento</option>
                   <option value="1">pregunta</option>
                   <option value="2">queja</option>
@@ -44,17 +46,17 @@
               <div class="divin">
                 <label for="d" class="text-2xl">Fecha del momento</label>
                 <p>fechas antes de hoy.</p>
-                <input type="date" id="d" class="inputs">
+                <input type="date" id="d" class="inputs" :class="{ 'postin': $v.fecha.$error }" v-model.trim="$v.fecha.$model">
               </div>
             </div>
             <label for="desc" class="text-2xl">Descripcion</label>
             <p>Recuerda ser lo mas puntual posible</p>
-            <vue-editor :editorToolbar="customToolbar" v-model="content" id="desc"></vue-editor>
+            <vue-editor :editorToolbar="customToolbar" v-model.trim="$v.content.$model" id="desc" :class="{ 'postin': $v.content.$error }"></vue-editor>
             <p>Caracteres maximos 60.000 usted lleva ({{ content.length }})</p>
             <div class="mt-10">
               <div>
                 <p class="text-2xl">Adjuntos</p>
-                <p>Agrega solo si crees necesario.</p>
+                <p>Solo se permiten archivos jpeg,png,pdf de maximo 5mb.</p>
                 <div class="text-3xl">
                   <i v-on:click="sum" class="fas fa-plus"></i>
                   <i v-on:click="less" class="fas fa-minus"></i>
@@ -64,14 +66,15 @@
               <div class="grid gap-3 grid-cols-1 md:grid-cols-2">
                 <div v-for="(id, index) in numadj" :key="index" class="grid gap-3 grid-cols-1">
                   <label for="url">Url (no necesria)</label>
-                  <input class="inputs" type="text" id="url">
-                  <label for="fil"></label>
-                  <input class="inputs" type="file" id="fil">
+                  <input class="inputs" type="url" id="url" v-model.trim="$v.ur.$model">
+                  <label for="file"></label>
+                  <input class="inputs" :class="{ 'postin': $v.ar.$error }" type="file" id="file" accept="image/*,.pdf" v-bind:value="$v.ar.$model">
                 </div>
               </div>
             </div>
             <div class="mt-10">
-              <input class="text-gray-200 bg-gray-700 hover:bg-gray-500 py-2 px-4 rounded w-20" type="submit" value="enviar">
+              <input class="text-gray-200 bg-gray-700 hover:bg-gray-500 py-2 px-4 rounded w-20" type="submit"
+                     value="enviar">
             </div>
 
           </form>
@@ -92,6 +95,7 @@ import userHeader from "@/components/UserComponents/header";
 import task from "@/components/UserComponents/task";
 import {mapActions} from "vuex";
 import {VueEditor} from "vue2-editor";
+import {required, maxLength} from 'vuelidate/lib/validators';
 
 export default {
   name: "createpqr",
@@ -104,9 +108,12 @@ export default {
     return {
       content: '',
       numadj: 0,
-      affair: '',
-
-      //content: `&#60script&#62${alert("hola")}&#60/script&#62`,
+      asunto: '',
+      empresa: '',
+      type: '',
+      fecha: '',
+      ar: [],
+      ur: [],
       customToolbar: [
         [{font: []}],
         [{header: [false, 1, 2, 3, 4, 5, 6]}],
@@ -124,8 +131,31 @@ export default {
       ],
     }
   },
-  validation: {
-
+  validations: {
+    asunto: {
+      required,
+      maxLength: maxLength(54)
+    },
+    empresa: {
+      required,
+    },
+    type: {
+      required,
+    },
+    fecha: {
+      required,
+    },
+    content: {
+      required,
+      maxLength: maxLength(59999)
+    },
+    ur: {
+      maxLength: maxLength(254)
+    },
+    ar: {
+      required,
+      // maxLength: maxLength(254)
+    }
   },
   created() {
     this.getBusName()
@@ -152,6 +182,14 @@ export default {
     },
     less() {
       this.numadj--
+    },
+    submit() {
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR'
+      } else {
+        console.log('submit!')
+      }
     }
   }
 }

@@ -17,7 +17,7 @@
         <div class="divin" :class="{'text-red-600': $v.fk_document_type_id.$error}">
           <label for="typedocument">Tipo De Documento.</label>
           <select class="inputs" :class="{ 'postin': $v.fk_document_type_id.$error }"
-                  v-model.trim="$v.fk_document_type_id.$model" name="" id="typedocument">
+                  v-model.trim="$v.fk_document_type_id.$model" id="typedocument">
             <option disabled value="">Seleccione un elemento</option>
             <option value="1">Cedula de Ciudadania</option>
             <option value="2">Targeta de Identidad</option>

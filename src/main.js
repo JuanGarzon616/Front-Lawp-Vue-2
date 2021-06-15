@@ -7,9 +7,7 @@ import '../public/styles.css'
 import VueSanitize from "vue-sanitize";
 
 Vue.use(VueSanitize);
-
 Vue.use(Vuelidate)
-
 Vue.config.productionTip = false
 
 new Vue({
