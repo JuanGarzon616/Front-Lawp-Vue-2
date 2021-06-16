@@ -12,7 +12,7 @@
         </div>
         <!--        -->
         <div class="z-0 lg:z-10 bg-white p-10 mb-20 w-full lg:w-11/12 rounded-lg">
-          <form v-on:submit.prevent="submit" class="flex flex-col w-full" enctype="multipart/form-data">
+          <form v-on:submit.prevent="submit" class="flex flex-col w-full">
             <label for="affair" class="text-2xl">Asunto</label>
             <input type="text" :class="{ 'postin': $v.asunto.$error }"
                    class=" w-1/3 p-1 border focus:outline-none focus:ring-2 focus:border-transparent rounded-lg shadow-2xl"
@@ -58,17 +58,22 @@
             <div class="mt-10">
               <div>
                 <p class="text-2xl" v-on:click="prueba">Adjuntos</p>
-                <p>Solo se permiten archivos jpeg,png,pdf de maximo 5mb.</p>
+                <p>Solo se permiten archivos jpeg, png, pdf de maximo 1000KB.</p>
+                <p v-if="ar.length>0">Archivos subidos: {{ ar.length }} </p>
+                <div class="grid grid-colos-1 w-1/2">
+                  <label for="url">Url (no necesaria)</label>
+                  <input class="inputs" type="url" id="url" :class="{ 'postin': $v.ur.$error }" v-model.trim="$v.ur.$model">
+                </div>
+
                 <div class="text-3xl">
-                  <i v-on:click="sum" class="fas fa-plus"></i>
+                  <i v-on:click="sum" class="fas fa-plus"></i><br>
                   <i v-on:click="less" class="fas fa-minus"></i>
                 </div>
 
               </div>
               <div class="grid gap-3 grid-cols-1 md:grid-cols-2">
                 <div v-for="(id, index) in numadj" :key="index" class="grid gap-3 grid-cols-1">
-                  <label for="url">Url (no necesria)</label>
-                  <input class="inputs" type="url" id="url" v-model.trim="$v.ur.$model">
+
                   <label for="file"></label>
                   <!--                  v-bind:value="$v.ar.$model"-->
                   <input class="inputs" :class="{ 'postin': $v.ar.$error }" type="file" id="file"
@@ -118,7 +123,7 @@ export default {
       type: '',
       fecha: '',
       ar: [],
-      ur: [],
+      ur: '',
       customToolbar: [
         [{font: []}],
         [{header: [false, 1, 2, 3, 4, 5, 6]}],
@@ -155,10 +160,10 @@ export default {
       maxLength: maxLength(59999)
     },
     ur: {
-      maxLength: maxLength(254)
+      maxLength: maxLength(354)
     },
     ar: {
-      required: requiredIf(function (){
+      required: requiredIf(function () {
         return this.numadj > 0;
 
       })
@@ -168,23 +173,9 @@ export default {
   created() {
     this.getBusName()
   },
-  /*computed: {
-
-  },*/
   methods: {
     ...mapActions('b', ['getBusName']),
-    sanitize(event) {
-      event.preventDefault();
-      const html = this.$sanitize(event.clipboardData.getData('text/html'));
-      //or
-      //const html = this.$sanitize(
-      //  event.clipboardData.getData('text/html'),
-      //  {
-      //    allowedTags: ['b', 'br']
-      //  }
-      //);
-      document.execCommand('insertHTML', false, (html));
-    },
+    ...mapActions('d', ['savePqrs']),
     sum() {
       this.numadj++
     },
@@ -206,8 +197,11 @@ export default {
           // console.log('hola')
           console.log('holabueno')
           console.log(this.ar)
+          // let fd = new FormData()
+          // fd.append('file', files[0])
           this.ar.push({
-            archive: files[0]
+            archive: files[0],
+            url: this.ur
           })
         } else {
           this.numadj--
@@ -218,15 +212,44 @@ export default {
     },
     prueba() {
       console.log(this.ar.length)
+      console.log(this.ar)
     },
     less() {
       this.numadj--
+    },
+    savePqr() {
+      // let pqr = {
+      //   affair: this.asunto,
+      //   description: this.content,
+      //   date: this.fecha,
+      //   fk_user_id: JSON.parse(localStorage.getItem("user")).id,
+      //   fk_bussiness_id: this.empresa,
+      //   fk_pqr_Type_id: this.type,
+      //   attachment: this.ar
+      // }
+      let fd = new FormData();
+      fd.append('affair', this.asunto)
+      fd.append('description', this.content)
+      fd.append('date',this.fecha)
+      fd.append('fk_user_id', JSON.parse(localStorage.getItem("user")).id)
+      fd.append('fk_bussiness_id', this.empresa)
+      fd.append('fk_pqr_Type_id', this.type)
+      for (let i = 1; i<=this.ar.length; i++) {
+        //console.log(this.ar[i-1].archive)
+        fd.append(`attachment[${i}][archive]`, this.ar[i-1].archive)
+        fd.append(`attachment[${i}][url]`, this.ar[i-1].url)
+      }
+      // fd.append('attachment', this.ar['archive'])
+      // fd.append('attachment', this.ar['url'])
+
+      this.savePqrs(fd)
     },
     submit() {
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
+        this.savePqr()
         console.log('submit!')
       }
     }

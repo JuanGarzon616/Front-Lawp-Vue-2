@@ -7,6 +7,7 @@ export default {
     state: {
         PqrUrl: 'http://127.0.0.1:8000/api/pqr/user',
         PqrUrlAffair: 'http://127.0.0.1:8000/api/pqr/affair/',
+        pqrSave: 'http://127.0.0.1:8000/api/pqr',
         pqrs: [],
         responses: [],
         attchments: [],
@@ -32,19 +33,35 @@ export default {
                 console.log(error)
             })
         },
-        getPqrUserAffair({state,commit}, valor) {
+        getPqrUserAffair({state, commit}, valor) {
             console.log(valor)
             axios.post(`${state.PqrUrlAffair}`, valor, {
                 'headers': {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                 }
             }).then(response => {
-                commit('setPqrs',response.data)
+                commit('setPqrs', response.data)
                 console.log(response)
             }).catch((error => {
                 console.log(error)
             }))
         },
+        savePqrs({state}, pqr) {
+
+            console.log(pqr)
+            //console.log(state.pqrSave)
+            axios.post(`${state.pqrSave}`, pqr, {
+                'headers': {
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                    "Content-Type": "multipart/form-data",
+                }
+            }).then(response => {
+                //commit('setPqrs', response.data)
+                console.log(response.data)
+            }).catch((error => {
+                console.log(error.response)
+            }))
+        }
     },
     getters: {
         pqrsUser: (state) => state.pqrs,
