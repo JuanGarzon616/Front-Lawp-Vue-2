@@ -8,6 +8,7 @@ export default {
         PqrUrl: 'http://127.0.0.1:8000/api/pqr/user',
         PqrUrlAffair: 'http://127.0.0.1:8000/api/pqr/affair/',
         pqrSave: 'http://127.0.0.1:8000/api/pqr',
+        delPqr: 'http://127.0.0.1:8000/api/pqr',
         pqrs: [],
         responses: [],
         attchments: [],
@@ -47,9 +48,6 @@ export default {
             }))
         },
         savePqrs({state}, pqr) {
-
-            console.log(pqr)
-            //console.log(state.pqrSave)
             axios.post(`${state.pqrSave}`, pqr, {
                 'headers': {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -57,10 +55,28 @@ export default {
                 }
             }).then(response => {
                 //commit('setPqrs', response.data)
-                console.log(response.data)
+                //console.log(response.status)
+                if (response.status === 200) {
+                    Swal.fire("Enviado", 'Pqr enviada.', 'success')
+                    router.push('/userlogin')
+                }
             }).catch((error => {
-                console.log(error.response)
+                //console.log(error.response)
+                Swal.fire("Error", 'A ocurrido un error revisa los datos.', 'error')
+                console.log(error)
             }))
+        },
+        deletePqr({state}, id) {
+            console.log(id)
+            axios.delete(`${state.delPqr}/${id}`, {
+                'headers': {
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                }
+            }).then(response => {
+                console.log(response)
+            }).catch(error => {
+                console.log(error)
+            })
         }
     },
     getters: {

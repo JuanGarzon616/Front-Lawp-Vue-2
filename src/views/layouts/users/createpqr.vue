@@ -120,7 +120,7 @@ export default {
       numadj: 0,
       asunto: '',
       empresa: '',
-      type: '',
+      type: 0,
       fecha: '',
       ar: [],
       ur: '',
@@ -218,15 +218,7 @@ export default {
       this.numadj--
     },
     savePqr() {
-      // let pqr = {
-      //   affair: this.asunto,
-      //   description: this.content,
-      //   date: this.fecha,
-      //   fk_user_id: JSON.parse(localStorage.getItem("user")).id,
-      //   fk_bussiness_id: this.empresa,
-      //   fk_pqr_Type_id: this.type,
-      //   attachment: this.ar
-      // }
+      console.log(this.type)
       let fd = new FormData();
       fd.append('affair', this.asunto)
       fd.append('description', this.content)
