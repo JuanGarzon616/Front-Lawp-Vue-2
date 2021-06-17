@@ -41,6 +41,11 @@ export default {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                 }
             }).then(response => {
+                if (response.data.status === 'Token is Expired') {
+                    localStorage.clear()
+                    Swal.fire('', 'Su sesion ha cadudaco.', 'info')
+                    router.push('/')
+                }
                 commit('setPqrs', response.data)
                 console.log(response)
             }).catch((error => {
@@ -54,14 +59,11 @@ export default {
                     "Content-Type": "multipart/form-data",
                 }
             }).then(response => {
-                //commit('setPqrs', response.data)
-                //console.log(response.status)
                 if (response.status === 200) {
                     Swal.fire("Enviado", 'Pqr enviada.', 'success')
                     router.push('/userlogin')
                 }
             }).catch((error => {
-                //console.log(error.response)
                 Swal.fire("Error", 'A ocurrido un error revisa los datos.', 'error')
                 console.log(error)
             }))
