@@ -8,13 +8,14 @@
         <h1 class="text-3xl z-0 lg:z-10"><b>Bienvenido</b></h1>
         <p class="text-xl z-0 lg:z-10">Aqui puedes ver tu pqr mas detallada, respuestas y adjuntos.</p>
         <div class="mt-10 p-10 w-full md:w-11/12 bg-white rounded-lg z-0 lg:z-10">
-          <h1 class="text-lg z-0">Asunto: {{ $store.getters["d/pqrsUser"][$route.params.id]['affair'] }}</h1>
-          <h1 class="text-lg z-0">Para: {{
+          <h1 class="text-3xl">Tu PQR</h1>
+          <h1 class="text-lg z-0 pt-10 font-serif">Asunto: {{ $store.getters["d/pqrsUser"][$route.params.id]['affair'] }}</h1>
+          <h1 class="text-lg z-0 font-serif" >Para: {{
               $store.getters["d/pqrsUser"][$route.params.id].business.bussiness_name
             }}</h1>
-          <h1 v-if="$store.getters['d/pqrsUser'][$route.params.id].fk_pqr_type_id===1" class="text-lg">pregunta</h1>
-          <h1 v-if="$store.getters['d/pqrsUser'][$route.params.id].fk_pqr_type_id===2" class="text-lg">queja</h1>
-          <h1 v-if="$store.getters['d/pqrsUser'][$route.params.id].fk_pqr_type_id===3" class="text-lg">reclamo</h1>
+          <h1 v-if="$store.getters['d/pqrsUser'][$route.params.id].fk_pqr_type_id===1" class="text-lg font-serif">pregunta</h1>
+          <h1 v-if="$store.getters['d/pqrsUser'][$route.params.id].fk_pqr_type_id===2" class="text-lg font-serif">queja</h1>
+          <h1 v-if="$store.getters['d/pqrsUser'][$route.params.id].fk_pqr_type_id===3" class="text-lg font-serif">reclamo</h1>
           <VueEditor class="pt-10 pb-32 z-0" disabled
                      v-model="$store.getters['d/pqrsUser'][$route.params.id].description"></VueEditor>
         </div>
