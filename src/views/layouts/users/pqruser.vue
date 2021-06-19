@@ -27,23 +27,30 @@
                      v-model="$store.getters['d/pqrsUser'][$route.params.id].description"></VueEditor>
           <div class=" font-serif">
             <h1 class="text-3xl pb-5">Links</h1>
-            <p  v-for="(item, index) in $store.getters['d/pqrsUser'][$route.params.id].attachments" :key="index">
+            <p v-for="(item, index) in $store.getters['d/pqrsUser'][$route.params.id].attachments" :key="index">
               <a v-if="item.url" class="text-purple-500 hover:text-purple-700 text-base" v-bind:href="item.url"
                  download="prueba">Url {{ item.url }}</a>
             </p>
           </div>
           <div class=" font-serif">
             <h1 class="text-3xl pt-10">Archivos</h1>
-            <p v-for="(item, index) in $store.getters['d/pqrsUser'][$route.params.id].attachments" :key="index">
-              <a class="text-purple-500 hover:text-purple-700" v-bind:href="item.archive" download="prueba">Adjunto
-                {{ index + 1 }}</a>
+            <p class="" v-for="(item, index) in $store.getters['d/pqrsUser'][$route.params.id].attachments"
+               :key="index">
+              <a class="text-purple-400 hover:text-purple-900 " v-bind:href="item.archive" download
+                 rel="noopener noreferrer" target="_blank">Adjunto {{ index + 1 }}</a>
             </p>
           </div>
           <h1 class="text-3xl pt-10 font-serif">Respuestas</h1>
-          <div class="pl-10 font-serif" v-for="(item, index) in $store.getters['d/pqrsUser'][$route.params.id].responses" :key="index">
-            <VueEditor class="pt-10" disabled v-if="item.response_pqr" v-model="item.response_pqr" ></VueEditor>
+          <div class="pl-10 font-serif"
+               v-for="(item, index) in $store.getters['d/pqrsUser'][$route.params.id].responses" :key="index">
+            <VueEditor class="pt-10" disabled v-if="item.response_pqr" v-model="item.response_pqr"></VueEditor>
             <h1 class="text-3xl pb-5">Links</h1>
             <h1 class="text-3xl pb-5">Archivos</h1>
+            <h1 v-for="(item, index) in item.attachments" :key="index">
+              <a class="text-purple-400 hover:text-purple-900 " v-bind:href="item.archive" download
+                 rel="noopener noreferrer" target="_blank">Adjunto {{ index + 1 }}</a>
+            </h1>
+
           </div>
 
 
@@ -103,7 +110,7 @@ export default {
 
 <style scoped>
 
-textarea{
+textarea {
   resize: none;
 }
 

@@ -46,6 +46,30 @@ const routes = [
         }
     },
     {
+        path: '/perfilusuario',
+        name: 'profile',
+        component: () => import('../views/layouts/users/profile'),
+        beforeEnter: (to, from, next) => {
+            let token = localStorage.getItem('token')
+            let user = localStorage.getItem('user')
+            if (user) var rol = JSON.parse(user).is_admin
+            if (token && rol === 3) next()
+            else next({name: 'Home'})
+        }
+    },
+    {
+        path: '/editarusuario',
+        name: 'edituser',
+        component: () => import('../views/layouts/users/edituser'),
+        beforeEnter: (to, from, next) => {
+            let token = localStorage.getItem('token')
+            let user = localStorage.getItem('user')
+            if (user) var rol = JSON.parse(user).is_admin
+            if (token && rol === 3) next()
+            else next({name: 'Home'})
+        }
+    },
+    {
         path: '/pqrusuario/:id',
         name: 'pqruser',
         component: () => import('../views/layouts/users/pqruser'),

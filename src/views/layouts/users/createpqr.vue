@@ -197,8 +197,6 @@ export default {
           // console.log('hola')
           console.log('holabueno')
           console.log(this.ar)
-          // let fd = new FormData()
-          // fd.append('file', files[0])
           this.ar.push({
             archive: files[0],
             url: this.ur
