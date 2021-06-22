@@ -27,7 +27,6 @@ export default {
                 } else {
                     console.log("algo paso")
                 }
-
                 console.log(response)
                 router.push('/BusinessLogin')
             }).catch(error => {

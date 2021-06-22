@@ -28,7 +28,7 @@
 
 
 import {mapActions} from "vuex";
-import {email, maxLength, minLength, required} from "vuelidate/lib/validators";
+import {email, maxLength, /*minLength,*/ required} from "vuelidate/lib/validators";
 
 export default {
   name: "LoginComponent",
@@ -45,8 +45,8 @@ export default {
       email,
     },
     password: {
-      required,
-      minLength: minLength(10),
+      // required,
+      // minLength: minLength(0),
     }
   },
   methods: {
